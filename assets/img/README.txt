@@ -1,15 +1,16 @@
-This folder is OPTIONAL now.
+profile.jpg  -> the headshot used in the hero section, the favicon,
+               and the link preview when the site is shared.
 
-The site uses designed cover graphics on the project cards instead of screenshots,
-so nothing here is required for the site to look finished.
+Currently 200x200. That is on the small side: the hero displays it up to
+340 CSS pixels wide, so on a high-DPI screen it will look a little soft.
+If you can find the original at 800x800 or larger, replace profile.jpg
+with it and the hero will sharpen up. Nothing else needs to change.
 
-The ONE image worth adding:
+Notes
+- Filenames are case-sensitive on GitHub Pages: lowercase "profile.jpg".
+- Keep it square and under ~300 KB. Compress at squoosh.app or tinypng.com.
+- If profile.jpg is ever missing, the hero falls back to a blue "KE"
+  monogram, which looks intentional rather than broken.
 
-  profile.png   -> your face photo, used in the hero section
-
-  - Square works best (e.g. 800x800).
-  - Keep it under ~300 KB. Compress at squoosh.app or tinypng.com.
-  - Filenames are case-sensitive on GitHub Pages: lowercase "profile.png".
-
-If profile.png is missing, the hero shows a blue "KE" monogram instead.
-That looks intentional, not broken — but a real photo is much better on a portfolio.
+No other images are needed. The project cards use designed cover graphics
+instead of screenshots.

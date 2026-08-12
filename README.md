@@ -16,7 +16,7 @@ khaled-portfolio/
     ├── css/style.css
     ├── js/main.js
     └── img/
-        └── profile.png         <- optional, see below
+        └── profile.jpg
 ```
 
 No screenshots are needed. The project cards use designed cover graphics instead, because the
@@ -24,8 +24,8 @@ underlying systems are internal.
 
 ## Optional polish
 
-- **`assets/img/profile.png`** — your headshot. Without it the hero shows a blue "KE" monogram,
-  which looks deliberate rather than broken.
+- **`assets/img/profile.jpg`** — in place, but only 200x200. A larger original (800x800) would
+  render sharper in the hero. Same filename, just drop it in.
 - **Skill chips** — search `Uncomment` in `index.html`. Angular, TypeScript, PostgreSQL, MongoDB,
   Docker, Linux, AWS, Kafka, Git and Postman are commented out because they are not on the CV.
   Re-enable whichever you actually use.
