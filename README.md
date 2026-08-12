@@ -24,8 +24,7 @@ underlying systems are internal.
 
 ## Optional polish
 
-- **`assets/img/profile.jpg`** — in place, but only 200x200. A larger original (800x800) would
-  render sharper in the hero. Same filename, just drop it in.
+- **`assets/img/profile.jpg`** — in place at 800x800. Nothing to do.
 - **Skill chips** — search `Uncomment` in `index.html`. Angular, TypeScript, PostgreSQL, MongoDB,
   Docker, Linux, AWS, Kafka, Git and Postman are commented out because they are not on the CV.
   Re-enable whichever you actually use.
