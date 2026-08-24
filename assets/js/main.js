@@ -175,4 +175,24 @@
   --------------------------------------------------------------- */
   var year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
+
+  /* ---------------------------------------------------------------
+     7. Image lightbox — click a product photo or stock thumbnail
+     to view it full-size in a popup.
+  --------------------------------------------------------------- */
+  var lightbox = document.getElementById('imageLightbox');
+  var lightboxImg = document.getElementById('lightboxImg');
+  var lightboxLabel = document.getElementById('lightboxLabel');
+
+  if (lightbox && lightboxImg && window.bootstrap) {
+    var lightboxInstance = bootstrap.Modal.getOrCreateInstance(lightbox);
+    document.querySelectorAll('.product-img-wrap img, .stock-thumb, .about-img').forEach(function (img) {
+      img.addEventListener('click', function () {
+        lightboxImg.src = img.currentSrc || img.src;
+        lightboxImg.alt = img.alt || '';
+        if (lightboxLabel) lightboxLabel.textContent = img.alt || '';
+        lightboxInstance.show();
+      });
+    });
+  }
 })();
