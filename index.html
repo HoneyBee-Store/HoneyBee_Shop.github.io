@@ -64,6 +64,7 @@
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
           <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
+          <li class="nav-item"><a class="nav-link" href="#stock">Stock</a></li>
           <li class="nav-item"><a class="nav-link" href="#about">Our Story</a></li>
           <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
           <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
@@ -279,6 +280,89 @@
             </article>
           </div>
 
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STOCK STATUS ============ -->
+    <!--
+      Names below are placeholders (Product A, B, C…) since the exact product
+      labels haven't been confirmed yet — swap them for the real names later.
+      To flag a product out of stock: change its row's badge from
+      "status-in" (In Stock) to "status-out" (Out of Stock), or just ask
+      Claude to update a given row.
+    -->
+    <section id="stock" class="section-pad section-alt">
+      <div class="container">
+        <header class="section-head reveal">
+          <h2 class="section-title">Stock Status</h2>
+          <p class="section-sub">
+            What's currently available. Names are placeholders for now — real product names to follow.
+          </p>
+        </header>
+
+        <div class="table-responsive stock-table-wrap reveal">
+          <table class="table align-middle stock-table">
+            <thead>
+              <tr>
+                <th scope="col">Photo</th>
+                <th scope="col">Product</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><img src="assets/img/products/honey-sidr.jpg" alt="" class="stock-thumb"></td>
+                <td>Product A</td>
+                <td><span class="badge status-in">In Stock</span></td>
+              </tr>
+              <tr>
+                <td><img src="assets/img/products/honey-jabali.jpg" alt="" class="stock-thumb"></td>
+                <td>Product B</td>
+                <td><span class="badge status-in">In Stock</span></td>
+              </tr>
+              <tr>
+                <td><img src="assets/img/products/honey-marrar.jpg" alt="" class="stock-thumb"></td>
+                <td>Product C</td>
+                <td><span class="badge status-in">In Stock</span></td>
+              </tr>
+              <tr>
+                <td><img src="assets/img/products/honey-kina.jpg" alt="" class="stock-thumb"></td>
+                <td>Product D</td>
+                <td><span class="badge status-in">In Stock</span></td>
+              </tr>
+              <tr>
+                <td><img src="assets/img/products/honeycomb-raw.jpg" alt="" class="stock-thumb"></td>
+                <td>Product E</td>
+                <td><span class="badge status-in">In Stock</span></td>
+              </tr>
+              <tr>
+                <td><img src="assets/img/products/honeycomb-cut.jpg" alt="" class="stock-thumb"></td>
+                <td>Product F</td>
+                <td><span class="badge status-in">In Stock</span></td>
+              </tr>
+              <tr>
+                <td><img src="assets/img/products/bee-pollen.jpg" alt="" class="stock-thumb"></td>
+                <td>Product G</td>
+                <td><span class="badge status-in">In Stock</span></td>
+              </tr>
+              <tr>
+                <td><img src="assets/img/products/propolis.jpg" alt="" class="stock-thumb"></td>
+                <td>Product H</td>
+                <td><span class="badge status-in">In Stock</span></td>
+              </tr>
+              <tr>
+                <td><img src="assets/img/products/royal-jelly.jpg" alt="" class="stock-thumb"></td>
+                <td>Product I</td>
+                <td><span class="badge status-in">In Stock</span></td>
+              </tr>
+              <tr>
+                <td><img src="assets/img/products/beeswax.jpg" alt="" class="stock-thumb"></td>
+                <td>Product J</td>
+                <td><span class="badge status-in">In Stock</span></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
