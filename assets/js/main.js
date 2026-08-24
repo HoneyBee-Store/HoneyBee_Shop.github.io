@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Abdullah Meshal — Portfolio
+   HoneyBee Shop — Product showcase
    Vanilla JS only. No build step, no dependencies beyond Bootstrap's bundle.
    ========================================================================== */
 (function () {
@@ -171,66 +171,7 @@
   }
 
   /* ---------------------------------------------------------------
-     6. Contact form → mailto (no backend)
-  --------------------------------------------------------------- */
-  var form = document.getElementById('contactForm');
-  var formStatus = document.getElementById('formStatus');
-  var EMAIL = 'khaledehmide3@gmail.com';
-
-  if (form) {
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
-      form.classList.add('was-validated');
-
-      if (!form.checkValidity()) {
-        if (formStatus) formStatus.textContent = 'Please complete the highlighted fields.';
-        var firstInvalid = form.querySelector(':invalid');
-        if (firstInvalid) firstInvalid.focus();
-        return;
-      }
-
-      var name = form.elements.name.value.trim();
-      var email = form.elements.email.value.trim();
-      var subject = form.elements.subject.value.trim();
-      var message = form.elements.message.value.trim();
-
-      var body = message + '\n\n—\n' + name + '\n' + email;
-      var href = 'mailto:' + EMAIL +
-        '?subject=' + encodeURIComponent(subject) +
-        '&body=' + encodeURIComponent(body);
-
-      window.location.href = href;
-
-      if (formStatus) {
-        formStatus.textContent = 'Opening your email app… if nothing happens, write to ' + EMAIL + '.';
-      }
-    });
-  }
-
-  /* ---------------------------------------------------------------
-     7. Monogram fallback if the profile photo has not been added yet.
-     Keeps the hero looking deliberate rather than broken.
-  --------------------------------------------------------------- */
-  var MONOGRAM = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">' +
-    '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">' +
-    '<stop offset="0%" stop-color="#1e3a8a"/><stop offset="100%" stop-color="#3b82f6"/>' +
-    '</linearGradient></defs>' +
-    '<rect width="400" height="400" fill="url(#g)"/>' +
-    '<text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" ' +
-    'font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="150" ' +
-    'font-weight="700" fill="#ffffff" letter-spacing="6">KE</text></svg>'
-  );
-
-  document.querySelectorAll('img').forEach(function (img) {
-    img.addEventListener('error', function handleError() {
-      img.removeEventListener('error', handleError);
-      img.src = MONOGRAM;
-    });
-  });
-
-  /* ---------------------------------------------------------------
-     8. Footer year
+     6. Footer year
   --------------------------------------------------------------- */
   var year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
