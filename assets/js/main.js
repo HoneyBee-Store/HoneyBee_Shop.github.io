@@ -277,9 +277,76 @@
   }
 
   /* ---------------------------------------------------------------
-     9. Stock edit popup — writes back to the Google Sheet through a
-     small Apps Script Web App (STOCK_API_URL). The passcode is
-     checked server-side in that script, never in this file.
+     9. Role gate — asks every visitor "Buyer or Owner?" on arrival.
+     Choosing Owner requires OWNER_PASSCODE. This only controls
+     whether the Edit buttons are shown in this browser tab — the
+     real protection is the passcode check inside the Apps Script
+     Web App (step 10), which every save request still has to pass.
+     The choice is remembered for the rest of this browser session
+     (sessionStorage), so it isn't asked again on every reload.
+  --------------------------------------------------------------- */
+  var OWNER_PASSCODE = '123456'; // must match PASSCODE in the Apps Script
+
+  function setOwnerMode(isOwner) {
+    document.body.classList.toggle('is-owner', isOwner);
+    try {
+      sessionStorage.setItem('hb_role', isOwner ? 'owner' : 'buyer');
+      if (isOwner) sessionStorage.setItem('hb_owner_passcode', OWNER_PASSCODE);
+    } catch (e) { /* storage blocked — role just won't persist across reloads */ }
+  }
+
+  var roleGateEl = document.getElementById('roleGateModal');
+  if (roleGateEl && window.bootstrap) {
+    var roleGateModal = bootstrap.Modal.getOrCreateInstance(roleGateEl);
+    var roleChoice = document.getElementById('roleGateChoice');
+    var roleForm = document.getElementById('roleGatePasscodeForm');
+    var roleError = document.getElementById('roleGateError');
+    var rolePasscodeInput = document.getElementById('roleGatePasscode');
+
+    var savedRole = null;
+    try { savedRole = sessionStorage.getItem('hb_role'); } catch (e) { /* storage blocked */ }
+
+    if (savedRole === 'owner' || savedRole === 'buyer') {
+      setOwnerMode(savedRole === 'owner');
+    } else {
+      roleGateModal.show();
+    }
+
+    document.getElementById('roleGateBuyerBtn').addEventListener('click', function () {
+      setOwnerMode(false);
+      roleGateModal.hide();
+    });
+
+    document.getElementById('roleGateOwnerBtn').addEventListener('click', function () {
+      roleChoice.classList.add('d-none');
+      roleForm.classList.remove('d-none');
+      rolePasscodeInput.focus();
+    });
+
+    document.getElementById('roleGateBackBtn').addEventListener('click', function () {
+      roleForm.classList.add('d-none');
+      roleChoice.classList.remove('d-none');
+      roleError.classList.add('d-none');
+      rolePasscodeInput.value = '';
+    });
+
+    roleForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (rolePasscodeInput.value === OWNER_PASSCODE) {
+        setOwnerMode(true);
+        roleGateModal.hide();
+      } else {
+        roleError.textContent = 'Incorrect passcode.';
+        roleError.classList.remove('d-none');
+      }
+    });
+  }
+
+  /* ---------------------------------------------------------------
+     10. Stock edit popup — writes back to the Google Sheet through a
+     small Apps Script Web App (STOCK_API_URL). The passcode sent
+     along is the one already confirmed at the role gate; the Apps
+     Script checks it again server-side before writing anything.
      A blank STOCK_API_URL means editing isn't wired up yet.
   --------------------------------------------------------------- */
   var STOCK_API_URL = '';
@@ -291,7 +358,6 @@
     var editRowInput = document.getElementById('stockEditRow');
     var editNameInput = document.getElementById('stockEditName');
     var editStatusInput = document.getElementById('stockEditStatus');
-    var editPasscodeInput = document.getElementById('stockEditPasscode');
     var editError = document.getElementById('stockEditError');
     var editSubmit = document.getElementById('stockEditSubmit');
 
@@ -301,7 +367,6 @@
         editRowInput.value = btn.getAttribute('data-row');
         editNameInput.value = tr.querySelector('.stock-name').textContent.trim();
         editStatusInput.value = tr.querySelector('.badge').classList.contains('status-out') ? 'Out of Stock' : 'In Stock';
-        editPasscodeInput.value = '';
         editError.classList.add('d-none');
         editModal.show();
       });
@@ -316,6 +381,9 @@
         return;
       }
 
+      var passcode = '';
+      try { passcode = sessionStorage.getItem('hb_owner_passcode') || ''; } catch (e) { /* storage blocked */ }
+
       editError.classList.add('d-none');
       editSubmit.disabled = true;
       editSubmit.textContent = 'Saving…';
@@ -327,7 +395,7 @@
           row: editRowInput.value,
           name: editNameInput.value.trim(),
           status: editStatusInput.value,
-          passcode: editPasscodeInput.value
+          passcode: passcode
         })
       })
         .then(function (res) { return res.json(); })

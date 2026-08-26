@@ -486,6 +486,32 @@
     </div>
   </div>
 
+  <!-- ============ ROLE GATE (Buyer / Owner) ============ -->
+  <div class="modal fade" id="roleGateModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="roleGateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body text-center p-4">
+          <p class="fs-1 mb-2" aria-hidden="true">🍯</p>
+          <h2 class="h5 mb-3" id="roleGateModalLabel">Welcome to HoneyBee Shop</h2>
+          <p class="text-body-secondary mb-4">Just so we know how to show you the site —</p>
+
+          <div id="roleGateChoice" class="d-grid gap-2">
+            <button type="button" class="btn btn-honey btn-lg" id="roleGateBuyerBtn">I'm a Buyer</button>
+            <button type="button" class="btn btn-outline-honey btn-lg" id="roleGateOwnerBtn">I'm the Owner</button>
+          </div>
+
+          <form id="roleGatePasscodeForm" class="d-none mt-3" novalidate>
+            <label for="roleGatePasscode" class="form-label">Enter owner passcode</label>
+            <input type="password" class="form-control mb-2" id="roleGatePasscode" autocomplete="off" required>
+            <p class="small text-danger d-none mb-2" id="roleGateError" role="alert"></p>
+            <button type="submit" class="btn btn-honey w-100 mb-2">Continue</button>
+            <button type="button" class="btn btn-link btn-sm" id="roleGateBackBtn">Back</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ============ STOCK EDIT POPUP ============ -->
   <div class="modal fade" id="stockEditModal" tabindex="-1" aria-labelledby="stockEditModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -507,10 +533,6 @@
                 <option value="In Stock">In Stock</option>
                 <option value="Out of Stock">Out of Stock</option>
               </select>
-            </div>
-            <div class="mb-3">
-              <label for="stockEditPasscode" class="form-label">Passcode</label>
-              <input type="password" class="form-control" id="stockEditPasscode" required autocomplete="off">
             </div>
             <p class="small text-danger d-none mb-3" id="stockEditError" role="alert"></p>
             <button type="submit" class="btn btn-honey w-100" id="stockEditSubmit">Save</button>

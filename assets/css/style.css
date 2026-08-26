@@ -311,6 +311,10 @@ a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .status-in { background: #1e7e34; color: #fff; }
 .status-out { background: #6c757d; color: #fff; }
 
+/* Edit buttons are owner-only — hidden until the role gate confirms it. */
+.stock-edit-btn { display: none; }
+body.is-owner .stock-edit-btn { display: inline-flex; align-items: center; justify-content: center; }
+
 /* ---------- Lightbox (click to enlarge) ---------- */
 .product-img-wrap img,
 .stock-thumb,
