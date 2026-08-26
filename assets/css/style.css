@@ -55,7 +55,7 @@ a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
 
 .skip-link {
   position: absolute;
-  left: -999px;
+  inset-inline-start: -999px;
   top: 0;
   z-index: 2000;
   background: var(--hb-accent);
@@ -63,7 +63,7 @@ a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
   padding: .6rem 1rem;
   border-radius: 0 0 .5rem 0;
 }
-.skip-link:focus { left: 0; }
+.skip-link:focus { inset-inline-start: 0; }
 
 /* ---------- Buttons ---------- */
 .btn-honey {
@@ -105,7 +105,7 @@ a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .section-title::after {
   content: "";
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
   bottom: 0;
   width: 52px;
   height: 4px;
@@ -276,6 +276,10 @@ a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
   margin-bottom: .15rem;
 }
 
+/* In Arabic the heading already carries the Arabic name, so this
+   secondary label would just repeat it. */
+html[lang="ar"] .product-name-ar { display: none; }
+
 .badge-note {
   margin-top: auto;
   padding-top: .75rem;
@@ -343,7 +347,7 @@ body.is-owner .stock-edit-btn { display: inline-flex; align-items: center; justi
 .lightbox-close {
   position: absolute;
   top: -.75rem;
-  right: -.75rem;
+  inset-inline-end: -.75rem;
   z-index: 5;
   background: #fff;
   border-radius: 50%;
@@ -390,7 +394,7 @@ body.is-owner .stock-edit-btn { display: inline-flex; align-items: center; justi
 /* ---------- Back to top ---------- */
 .back-to-top {
   position: fixed;
-  right: 1.15rem;
+  inset-inline-end: 1.15rem;
   bottom: 1.15rem;
   z-index: 1030;
   width: 46px;

@@ -8,6 +8,93 @@
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------------------------------------------------------------
+     0. Language (Arabic by default, English optional)
+
+     Static text lives in the HTML as English with a data-ar attribute
+     holding the Arabic. Strings that JS generates at runtime live in
+     STRINGS below. The <html> lang/dir and the correct Bootstrap
+     stylesheet are set by the inline script in <head> before paint;
+     this section swaps the text and wires up the toggle button.
+  --------------------------------------------------------------- */
+  var STRINGS = {
+    inStock:    { en: 'In Stock',    ar: 'متوفر' },
+    outOfStock: { en: 'Out of Stock', ar: 'غير متوفر' },
+    save:       { en: 'Save',        ar: 'حفظ' },
+    saving:     { en: 'Saving…',     ar: 'جارٍ الحفظ…' },
+    saveFailed: {
+      en: 'Could not save to the sheet. Check your connection and try again.',
+      ar: 'تعذّر الحفظ في الجدول. تحقق من الاتصال وحاول مجددًا.'
+    },
+    wrongPasscode: { en: 'Incorrect passcode.', ar: 'الرمز غير صحيح.' },
+    pageTitle: {
+      en: 'HoneyBee Shop — Pure Natural Honey & Bee Products',
+      ar: 'متجر عسل النحل — عسل طبيعي نقي ومنتجات النحل'
+    },
+    // The label names the language you would switch TO, not the current one.
+    switchLabel: { en: 'عربي', ar: 'English' }
+  };
+
+  function currentLang() {
+    return document.documentElement.getAttribute('lang') === 'en' ? 'en' : 'ar';
+  }
+
+  function t(key) {
+    var entry = STRINGS[key];
+    return entry ? entry[currentLang()] : '';
+  }
+
+  // Capture the English already in the markup before any swap overwrites it.
+  var translatables = document.querySelectorAll('[data-ar]');
+  translatables.forEach(function (el) {
+    if (!el.hasAttribute('data-en')) {
+      el.setAttribute('data-en', el.textContent.trim());
+    }
+  });
+
+  function applyLanguage(lang) {
+    var isAr = lang === 'ar';
+
+    document.documentElement.setAttribute('lang', isAr ? 'ar' : 'en');
+    document.documentElement.setAttribute('dir', isAr ? 'rtl' : 'ltr');
+
+    var ltr = document.getElementById('bsLtr');
+    var rtl = document.getElementById('bsRtl');
+    if (ltr) ltr.disabled = isAr;
+    if (rtl) rtl.disabled = !isAr;
+
+    translatables.forEach(function (el) {
+      var text = isAr ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+      if (text) el.textContent = text;
+    });
+
+    document.title = t('pageTitle');
+
+    var label = document.getElementById('langToggleLabel');
+    if (label) label.textContent = t('switchLabel');
+
+    refreshDynamicText();
+
+    try { localStorage.setItem('lang', lang); } catch (e) { /* storage blocked */ }
+  }
+
+  // Re-label anything JS wrote earlier, so a language switch doesn't leave
+  // stale text behind (the stock badges are the only case today).
+  function refreshDynamicText() {
+    document.querySelectorAll('#stock tbody .badge').forEach(function (badge) {
+      badge.textContent = badge.classList.contains('status-out') ? t('outOfStock') : t('inStock');
+    });
+  }
+
+  var langToggle = document.getElementById('langToggle');
+  if (langToggle) {
+    langToggle.addEventListener('click', function () {
+      applyLanguage(currentLang() === 'ar' ? 'en' : 'ar');
+    });
+  }
+
+  applyLanguage(currentLang());
+
+  /* ---------------------------------------------------------------
      1. Theme toggle (light / dark, persisted in localStorage)
      The initial theme is applied by the inline script in <head>;
      here we only wire up the button and keep the icon in sync.
@@ -257,7 +344,7 @@
 
       var badge = trs[i].querySelector('.badge');
       if (badge) {
-        badge.textContent = isOut ? 'Out of Stock' : 'In Stock';
+        badge.textContent = isOut ? t('outOfStock') : t('inStock');
         badge.classList.toggle('status-out', isOut);
         badge.classList.toggle('status-in', !isOut);
       }
@@ -336,7 +423,7 @@
         setOwnerMode(true);
         roleGateModal.hide();
       } else {
-        roleError.textContent = 'Incorrect passcode.';
+        roleError.textContent = t('wrongPasscode');
         roleError.classList.remove('d-none');
       }
     });
@@ -379,7 +466,7 @@
 
       editError.classList.add('d-none');
       editSubmit.disabled = true;
-      editSubmit.textContent = 'Saving…';
+      editSubmit.textContent = t('saving');
 
       fetch(STOCK_API_URL, {
         method: 'POST',
@@ -406,7 +493,7 @@
             var isOut = editStatusInput.value === 'Out of Stock';
             var badge = tr.querySelector('.badge');
             if (badge) {
-              badge.textContent = isOut ? 'Out of Stock' : 'In Stock';
+              badge.textContent = isOut ? t('outOfStock') : t('inStock');
               badge.classList.toggle('status-out', isOut);
               badge.classList.toggle('status-in', !isOut);
             }
@@ -415,12 +502,12 @@
         })
         .catch(function () {
           // Don't close the popup — a silent close would look like it saved.
-          editError.textContent = 'Could not save to the sheet. Check your connection and try again.';
+          editError.textContent = t('saveFailed');
           editError.classList.remove('d-none');
         })
         .finally(function () {
           editSubmit.disabled = false;
-          editSubmit.textContent = 'Save';
+          editSubmit.textContent = t('save');
         });
     });
   }
