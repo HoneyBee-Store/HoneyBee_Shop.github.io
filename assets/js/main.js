@@ -343,14 +343,12 @@
   }
 
   /* ---------------------------------------------------------------
-     10. Stock edit popup — writes back to the Google Sheet through a
-     small Apps Script Web App (STOCK_API_URL). The passcode sent
-     along is the one already confirmed at the role gate; the Apps
-     Script checks it again server-side before writing anything.
-     A blank STOCK_API_URL means editing isn't wired up yet.
+     10. Stock edit popup. Saving updates the table in this browser
+     only — it does not write back to the Google Sheet, so the change
+     is not visible to other visitors and is lost on reload (the page
+     re-reads the sheet on every load). Writing back needs a server
+     the sheet will accept requests from; that isn't wired up.
   --------------------------------------------------------------- */
-  var STOCK_API_URL = '';
-
   var editModalEl = document.getElementById('stockEditModal');
   if (editModalEl && window.bootstrap) {
     var editModal = bootstrap.Modal.getOrCreateInstance(editModalEl);
@@ -358,8 +356,6 @@
     var editRowInput = document.getElementById('stockEditRow');
     var editNameInput = document.getElementById('stockEditName');
     var editStatusInput = document.getElementById('stockEditStatus');
-    var editError = document.getElementById('stockEditError');
-    var editSubmit = document.getElementById('stockEditSubmit');
 
     document.querySelectorAll('.stock-edit-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -367,7 +363,6 @@
         editRowInput.value = btn.getAttribute('data-row');
         editNameInput.value = tr.querySelector('.stock-name').textContent.trim();
         editStatusInput.value = tr.querySelector('.badge').classList.contains('status-out') ? 'Out of Stock' : 'In Stock';
-        editError.classList.add('d-none');
         editModal.show();
       });
     });
@@ -375,56 +370,21 @@
     editForm.addEventListener('submit', function (event) {
       event.preventDefault();
 
-      if (!STOCK_API_URL) {
-        editError.textContent = 'Live editing isn\'t connected yet.';
-        editError.classList.remove('d-none');
-        return;
+      var trs = document.querySelectorAll('#stock tbody tr');
+      var tr = trs[parseInt(editRowInput.value, 10) - 1];
+      if (tr) {
+        var nameCell = tr.querySelector('.stock-name');
+        if (nameCell) nameCell.textContent = editNameInput.value.trim();
+
+        var isOut = editStatusInput.value === 'Out of Stock';
+        var badge = tr.querySelector('.badge');
+        if (badge) {
+          badge.textContent = isOut ? 'Out of Stock' : 'In Stock';
+          badge.classList.toggle('status-out', isOut);
+          badge.classList.toggle('status-in', !isOut);
+        }
       }
-
-      var passcode = '';
-      try { passcode = sessionStorage.getItem('hb_owner_passcode') || ''; } catch (e) { /* storage blocked */ }
-
-      editError.classList.add('d-none');
-      editSubmit.disabled = true;
-      editSubmit.textContent = 'Saving…';
-
-      fetch(STOCK_API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({
-          row: editRowInput.value,
-          name: editNameInput.value.trim(),
-          status: editStatusInput.value,
-          passcode: passcode
-        })
-      })
-        .then(function (res) { return res.json(); })
-        .then(function (data) {
-          if (!data.ok) throw new Error(data.error || 'Could not save.');
-
-          var trs = document.querySelectorAll('#stock tbody tr');
-          var tr = trs[parseInt(editRowInput.value, 10) - 1];
-          if (tr) {
-            var nameCell = tr.querySelector('.stock-name');
-            if (nameCell) nameCell.textContent = editNameInput.value.trim();
-            var isOut = editStatusInput.value === 'Out of Stock';
-            var badge = tr.querySelector('.badge');
-            if (badge) {
-              badge.textContent = isOut ? 'Out of Stock' : 'In Stock';
-              badge.classList.toggle('status-out', isOut);
-              badge.classList.toggle('status-in', !isOut);
-            }
-          }
-          editModal.hide();
-        })
-        .catch(function (err) {
-          editError.textContent = err.message || 'Network error — please try again.';
-          editError.classList.remove('d-none');
-        })
-        .finally(function () {
-          editSubmit.disabled = false;
-          editSubmit.textContent = 'Save';
-        });
+      editModal.hide();
     });
   }
 })();
