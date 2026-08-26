@@ -343,12 +343,13 @@
   }
 
   /* ---------------------------------------------------------------
-     10. Stock edit popup. Saving updates the table in this browser
-     only — it does not write back to the Google Sheet, so the change
-     is not visible to other visitors and is lost on reload (the page
-     re-reads the sheet on every load). Writing back needs a server
-     the sheet will accept requests from; that isn't wired up.
+     10. Stock edit popup — saves back into the Google Sheet through
+     an Apps Script Web App, so the change persists across reloads
+     and every visitor sees it. The passcode confirmed at the role
+     gate is sent along and re-checked server-side by the script.
   --------------------------------------------------------------- */
+  var STOCK_API_URL = 'https://script.google.com/macros/s/AKfycbwkZNs3qp3Q7pahk7NyXmbHAfz5DahhwhAK7uRRajd24djsXQ5iIeHtKRsXN2VJRNDj/exec';
+
   var editModalEl = document.getElementById('stockEditModal');
   if (editModalEl && window.bootstrap) {
     var editModal = bootstrap.Modal.getOrCreateInstance(editModalEl);
@@ -356,6 +357,8 @@
     var editRowInput = document.getElementById('stockEditRow');
     var editNameInput = document.getElementById('stockEditName');
     var editStatusInput = document.getElementById('stockEditStatus');
+    var editError = document.getElementById('stockEditError');
+    var editSubmit = document.getElementById('stockEditSubmit');
 
     document.querySelectorAll('.stock-edit-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -363,6 +366,7 @@
         editRowInput.value = btn.getAttribute('data-row');
         editNameInput.value = tr.querySelector('.stock-name').textContent.trim();
         editStatusInput.value = tr.querySelector('.badge').classList.contains('status-out') ? 'Out of Stock' : 'In Stock';
+        editError.classList.add('d-none');
         editModal.show();
       });
     });
@@ -370,21 +374,54 @@
     editForm.addEventListener('submit', function (event) {
       event.preventDefault();
 
-      var trs = document.querySelectorAll('#stock tbody tr');
-      var tr = trs[parseInt(editRowInput.value, 10) - 1];
-      if (tr) {
-        var nameCell = tr.querySelector('.stock-name');
-        if (nameCell) nameCell.textContent = editNameInput.value.trim();
+      var passcode = '';
+      try { passcode = sessionStorage.getItem('hb_owner_passcode') || ''; } catch (e) { /* storage blocked */ }
 
-        var isOut = editStatusInput.value === 'Out of Stock';
-        var badge = tr.querySelector('.badge');
-        if (badge) {
-          badge.textContent = isOut ? 'Out of Stock' : 'In Stock';
-          badge.classList.toggle('status-out', isOut);
-          badge.classList.toggle('status-in', !isOut);
-        }
-      }
-      editModal.hide();
+      editError.classList.add('d-none');
+      editSubmit.disabled = true;
+      editSubmit.textContent = 'Saving…';
+
+      fetch(STOCK_API_URL, {
+        method: 'POST',
+        // text/plain keeps this a "simple" request, so the browser skips the
+        // CORS preflight that Apps Script would not answer.
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          row: editRowInput.value,
+          name: editNameInput.value.trim(),
+          status: editStatusInput.value,
+          passcode: passcode
+        })
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (!data.ok) throw new Error(data.error || 'Could not save.');
+
+          var trs = document.querySelectorAll('#stock tbody tr');
+          var tr = trs[parseInt(editRowInput.value, 10) - 1];
+          if (tr) {
+            var nameCell = tr.querySelector('.stock-name');
+            if (nameCell) nameCell.textContent = editNameInput.value.trim();
+
+            var isOut = editStatusInput.value === 'Out of Stock';
+            var badge = tr.querySelector('.badge');
+            if (badge) {
+              badge.textContent = isOut ? 'Out of Stock' : 'In Stock';
+              badge.classList.toggle('status-out', isOut);
+              badge.classList.toggle('status-in', !isOut);
+            }
+          }
+          editModal.hide();
+        })
+        .catch(function () {
+          // Don't close the popup — a silent close would look like it saved.
+          editError.textContent = 'Could not save to the sheet. Check your connection and try again.';
+          editError.classList.remove('d-none');
+        })
+        .finally(function () {
+          editSubmit.disabled = false;
+          editSubmit.textContent = 'Save';
+        });
     });
   }
 })();
