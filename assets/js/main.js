@@ -348,7 +348,7 @@
      and every visitor sees it. The passcode confirmed at the role
      gate is sent along and re-checked server-side by the script.
   --------------------------------------------------------------- */
-  var STOCK_API_URL = 'https://script.google.com/macros/s/AKfycbwkZNs3qp3Q7pahk7NyXmbHAfz5DahhwhAK7uRRajd24djsXQ5iIeHtKRsXN2VJRNDj/exec';
+  var STOCK_API_URL = 'https://script.google.com/macros/s/AKfycbxhVaY05d0imGSRbN_SmCzhvPK-NpShEDQ-2jUQ43M71ZaeL-32BVg4vhxVygJvQUUV/exec';
 
   var editModalEl = document.getElementById('stockEditModal');
   if (editModalEl && window.bootstrap) {
