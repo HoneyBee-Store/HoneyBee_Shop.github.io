@@ -161,6 +161,31 @@ a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
   background: var(--hb-accent);
 }
 
+/* Phone call-to-action in the navbar. Below the navbar breakpoint the
+   brand, number and hamburger can't share one row, so the number takes a
+   full-width row of its own — which also gives a bigger tap target. */
+.nav-call {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  white-space: nowrap;
+  font-weight: 600;
+  flex-basis: 100%;
+  order: 3;
+  margin-top: .5rem;
+}
+
+@media (min-width: 992px) {
+  .nav-call {
+    flex-basis: auto;
+    order: 0;
+    margin-top: 0;
+    margin-inline-start: auto;
+    margin-inline-end: .5rem;
+  }
+}
+
 .btn-theme {
   border: 1px solid var(--hb-border);
   background: var(--hb-surface-alt);
