@@ -306,6 +306,12 @@ html[lang="ar"] .product-name-ar { display: none; }
   border-bottom-width: 1px;
 }
 .stock-table td { vertical-align: middle; }
+.stock-thumb {
+  width: 52px;
+  height: 52px;
+  object-fit: cover;
+  border-radius: .5rem;
+}
 .status-in { background: #1e7e34; color: #fff; }
 .status-out { background: #6c757d; color: #fff; }
 
@@ -315,6 +321,7 @@ body.is-owner .stock-edit-btn { display: inline-flex; align-items: center; justi
 
 /* ---------- Lightbox (click to enlarge) ---------- */
 .product-img-wrap img,
+.stock-thumb,
 .about-img {
   cursor: zoom-in;
 }

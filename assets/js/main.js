@@ -273,7 +273,7 @@
 
   if (lightbox && lightboxImg && window.bootstrap) {
     var lightboxInstance = bootstrap.Modal.getOrCreateInstance(lightbox);
-    document.querySelectorAll('.product-img-wrap img, .about-img').forEach(function (img) {
+    document.querySelectorAll('.product-img-wrap img, .stock-thumb, .about-img').forEach(function (img) {
       img.addEventListener('click', function () {
         lightboxImg.src = img.currentSrc || img.src;
         lightboxImg.alt = img.alt || '';
