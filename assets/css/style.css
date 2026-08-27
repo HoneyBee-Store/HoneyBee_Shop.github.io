@@ -248,8 +248,10 @@ a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
   box-shadow: var(--hb-shadow-lg);
 }
 
+/* Portrait-ish frame: the product photos are tall phone shots, so a 4:3
+   landscape crop threw away most of the jar and kept the floor. */
 .product-img-wrap {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
   border-bottom: 1px solid var(--hb-border);
 }
@@ -279,6 +281,18 @@ a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
 /* In Arabic the heading already carries the Arabic name, so this
    secondary label would just repeat it. */
 html[lang="ar"] .product-name-ar { display: none; }
+
+/* Focal point per photo, measured from where the product actually sits in
+   each shot. Without these, cropping centres on the carpet below the jar.
+   Matching on the filename covers both the product card and the stock
+   table thumbnail in one rule. */
+img[src$="honey-sidr.jpg"]    { object-position: center 24%; }
+img[src$="honey-jabali.jpg"]  { object-position: center 23%; }
+img[src$="honey-kina.jpg"]    { object-position: center 28%; }
+img[src$="honey-marrar.jpg"]  { object-position: center 42%; }
+img[src$="royal-jelly.jpg"]   { object-position: center 40%; }
+img[src$="propolis.jpg"]      { object-position: center 47%; }
+img[src$="honeycomb-cut.jpg"] { object-position: center 60%; }
 
 /* ---------- Stock status table ---------- */
 .stock-table-wrap {
