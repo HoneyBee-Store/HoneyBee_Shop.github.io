@@ -376,6 +376,9 @@ body.is-owner .stock-edit-btn { display: inline-flex; align-items: center; justi
 .contact-list a { text-decoration: none; font-weight: 500; }
 .contact-list a:hover { text-decoration: underline; }
 
+/* Several map links under one label need to stack rather than run together. */
+.map-link { display: block; }
+
 /* ---------- Footer ---------- */
 .site-footer {
   padding: 1.75rem 0;
