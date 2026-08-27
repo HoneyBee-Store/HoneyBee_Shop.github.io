@@ -324,9 +324,15 @@
     return rows;
   }
 
-  function applyStockData(rows) {
-    var trs = document.querySelectorAll('#stock tbody tr');
+  // Find the table row that represents a given sheet row. Rows are matched by
+  // the data-row attribute, not by position, because the table deliberately
+  // omits some sheet rows — matching positionally would shift every row below
+  // an omitted one onto the wrong product.
+  function stockRowFor(sheetRow) {
+    return document.querySelector('#stock tbody tr[data-row="' + sheetRow + '"]');
+  }
 
+  function applyStockData(rows) {
     // A row only counts as real data if its status cell mentions "stock" —
     // this skips a header row ("Product,Status") or any stray blank line.
     var dataRows = rows.filter(function (r) {
@@ -334,15 +340,17 @@
     });
 
     dataRows.forEach(function (r, i) {
-      if (i >= trs.length) return;
+      var tr = stockRowFor(i + 1); // sheet rows are 1-based
+      if (!tr) return;             // this sheet row isn't shown in the table
+
       var name = (r[0] || '').trim();
       var status = (r[1] || '').trim().toLowerCase();
       var isOut = status.indexOf('out') !== -1;
 
-      var nameCell = trs[i].querySelector('.stock-name');
+      var nameCell = tr.querySelector('.stock-name');
       if (nameCell && name) nameCell.textContent = name;
 
-      var badge = trs[i].querySelector('.badge');
+      var badge = tr.querySelector('.badge');
       if (badge) {
         badge.textContent = isOut ? t('outOfStock') : t('inStock');
         badge.classList.toggle('status-out', isOut);
@@ -484,8 +492,7 @@
         .then(function (data) {
           if (!data.ok) throw new Error(data.error || 'Could not save.');
 
-          var trs = document.querySelectorAll('#stock tbody tr');
-          var tr = trs[parseInt(editRowInput.value, 10) - 1];
+          var tr = stockRowFor(editRowInput.value);
           if (tr) {
             var nameCell = tr.querySelector('.stock-name');
             if (nameCell) nameCell.textContent = editNameInput.value.trim();
