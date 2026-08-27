@@ -280,14 +280,6 @@ a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
    secondary label would just repeat it. */
 html[lang="ar"] .product-name-ar { display: none; }
 
-.badge-note {
-  margin-top: auto;
-  padding-top: .75rem;
-  font-size: .72rem;
-  font-style: italic;
-  color: var(--bs-secondary-color);
-}
-
 /* ---------- Stock status table ---------- */
 .stock-table-wrap {
   background: var(--hb-surface);
