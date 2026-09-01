@@ -13,7 +13,11 @@
 .stock-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 30rem;
+  /* Comfortable on a wide screen, but never wider than the space available.
+     A flat 30rem floor pushed the whole page past the viewport on a phone —
+     and because the page is RTL, the overflow opened up as a blank strip
+     down the LEFT edge rather than a scrollbar on the right. */
+  min-width: min(30rem, 100%);
 }
 
 .stock-table th,
