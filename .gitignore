@@ -4,3 +4,6 @@ Desktop.ini
 .DS_Store
 *.tmp
 ~$*
+
+# Local preview helper, not part of the published site
+.claude/

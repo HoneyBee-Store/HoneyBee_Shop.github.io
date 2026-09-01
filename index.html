@@ -1,515 +1,532 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" data-bs-theme="light">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>HoneyBee Shop — Pure Natural Honey &amp; Bee Products</title>
-  <meta name="description" content="HoneyBee Shop — a small showcase of raw, natural honey and bee products: Sidr, Jabali, Marrar and Kina honey, honeycomb, bee pollen, propolis, royal jelly and beeswax.">
-  <meta name="theme-color" content="#c9852b">
-  <link rel="canonical" href="https://kihmeidi.github.io/">
+  <title>متجر عسل النحل — عسل طبيعي خام ومنتجات النحل</title>
+  <meta name="description" content="متجر عسل النحل — عسل خام طبيعي ومنتجات النحل: السدر، الجبلي، المرار والكينا، شمع العسل، حبوب اللقاح، البروبوليس، غذاء الملكات وشمع النحل.">
+  <meta name="theme-color" content="#2A1D12">
 
-  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="HoneyBee Shop">
-  <meta property="og:title" content="HoneyBee Shop — Pure Natural Honey &amp; Bee Products">
-  <meta property="og:description" content="A small showcase of raw, natural honey and bee products, straight from the hive.">
-  <meta property="og:url" content="https://kihmeidi.github.io/">
-  <meta property="og:image" content="https://kihmeidi.github.io/assets/img/products/collection-hero.jpg">
-  <meta property="og:image:alt" content="A collection of jars of natural honey">
+  <meta property="og:title" content="متجر عسل النحل — عسل طبيعي خام ومنتجات النحل">
+  <meta property="og:description" content="عسل خام ومنتجات النحل، مباشرة من الخلية. الزرقاء وعمّان.">
+  <meta property="og:image" content="https://honeybee-store.github.io/HoneyBee_Shop.github.io/assets/img/products/collection-hero.jpg">
   <meta property="og:locale" content="ar_JO">
-
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="HoneyBee Shop — Pure Natural Honey &amp; Bee Products">
-  <meta name="twitter:description" content="Raw honey, honeycomb, bee pollen, propolis, royal jelly and beeswax — straight from the hive.">
-  <meta name="twitter:image" content="https://kihmeidi.github.io/assets/img/products/collection-hero.jpg">
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%AF%3C/text%3E%3C/svg%3E">
 
-  <!-- Bootstrap 5 (both directions; the inline script below disables the unused one) -->
-  <link id="bsLtr" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link id="bsRtl" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet" crossorigin="anonymous">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" crossorigin="anonymous">
-  <link href="assets/css/style.css" rel="stylesheet">
+  <!-- Both directions are linked; the script below disables the unused one. -->
+  <link id="bsLtr" href="assets/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link id="bsRtl" href="assets/lib/bootstrap/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <link href="assets/lib/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="assets/css/fonts.css" rel="stylesheet">
+  <link href="assets/css/site.css" rel="stylesheet">
+  <link href="assets/css/pages.css" rel="stylesheet">
 
-  <!-- Apply saved theme and language before first paint to avoid a flash of
-       the wrong colours or the wrong text direction. Arabic is the default. -->
+  <!-- Set the saved language before first paint, so the page never flashes
+       the wrong direction. Arabic is the default. -->
   <script>
     (function () {
       var lang = 'ar';
-      var theme = null;
-      try {
-        lang = localStorage.getItem('lang') || 'ar';
-        theme = localStorage.getItem('theme');
-      } catch (e) { /* storage blocked — fall back to defaults */ }
-
-      var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      document.documentElement.setAttribute('data-bs-theme', theme || (prefersDark ? 'dark' : 'light'));
-
+      try { lang = localStorage.getItem('lang') || 'ar'; } catch (e) { /* storage blocked */ }
       var isAr = lang === 'ar';
       document.documentElement.setAttribute('lang', isAr ? 'ar' : 'en');
       document.documentElement.setAttribute('dir', isAr ? 'rtl' : 'ltr');
-
-      var ltr = document.getElementById('bsLtr');
-      var rtl = document.getElementById('bsRtl');
-      if (ltr) ltr.disabled = isAr;
-      if (rtl) rtl.disabled = !isAr;
+      document.addEventListener('DOMContentLoaded', function () {
+        var ltr = document.getElementById('bsLtr');
+        var rtl = document.getElementById('bsRtl');
+        if (ltr) ltr.disabled = isAr;
+        if (rtl) rtl.disabled = !isAr;
+      });
     })();
   </script>
 </head>
-
 <body>
-  <a class="skip-link" href="#main" data-ar="تخطَّ إلى المحتوى الرئيسي">Skip to main content</a>
+  <a class="skip-link" href="#main" data-ar="تجاوز إلى المحتوى">Skip to main content</a>
 
-  <!-- ============ NAVBAR ============ -->
-  <nav class="navbar navbar-expand-lg sticky-top site-nav" id="siteNav">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="#hero">
+  <!-- ============================ HEADER ============================ -->
+  <header class="site-header">
+    <div class="container-hb nav-inner">
+      <a class="brand" href="#main">
         <span class="brand-mark" aria-hidden="true">🍯</span>
         <span data-ar="متجر عسل النحل">HoneyBee Shop</span>
       </a>
 
-      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navLinks"
-              aria-controls="navLinks" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+      <button class="nav-toggle" type="button" id="navToggle"
+              aria-controls="navCollapse" aria-expanded="false" aria-label="Menu">
+        <i class="bi bi-list" aria-hidden="true"></i>
       </button>
 
-      <!-- Kept outside .navbar-collapse so the number stays visible and
-           tappable on mobile without opening the menu. -->
-      <a class="btn btn-sm btn-honey nav-call" href="tel:+962780364203">
-        <i class="bi bi-telephone-fill" aria-hidden="true"></i>
-        <span dir="ltr">+962 78 036 4203</span>
-      </a>
-
-      <div class="collapse navbar-collapse" id="navLinks">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
-          <li class="nav-item"><a class="nav-link" href="#hero" data-ar="الرئيسية">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="#products" data-ar="المنتجات">Products</a></li>
-          <li class="nav-item"><a class="nav-link" href="#stock" data-ar="التوفّر">Stock</a></li>
-          <li class="nav-item"><a class="nav-link" href="#about" data-ar="قصتنا">Our Story</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contact" data-ar="تواصل معنا">Contact</a></li>
-          <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
-            <button class="btn btn-sm btn-theme" id="langToggle" type="button" title="Change language">
-              <i class="bi bi-translate" aria-hidden="true"></i>
-              <span class="ms-1" id="langToggleLabel">English</span>
-            </button>
-          </li>
-          <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
-            <button class="btn btn-sm btn-theme" id="themeToggle" type="button"
-                    aria-label="Switch to dark theme" title="Toggle dark / light theme">
-              <i class="bi bi-moon-stars" aria-hidden="true"></i>
-              <span class="d-lg-none ms-2" data-ar="تبديل المظهر">Toggle theme</span>
-            </button>
-          </li>
+      <div class="nav-collapse" id="navCollapse">
+        <ul class="nav-links">
+          <li><a class="nav-link" href="#main" data-ar="الرئيسية">Home</a></li>
+          <li><a class="nav-link" href="#products" data-ar="المنتجات">Products</a></li>
+          <li><a class="nav-link" href="#stock" data-ar="حالة التوفّر">Availability</a></li>
+          <li><a class="nav-link" href="#about" data-ar="قصتنا">Our Story</a></li>
+          <li><a class="nav-link" href="#contact" data-ar="تواصل معنا">Contact</a></li>
         </ul>
+
+        <div class="nav-actions">
+          <a class="nav-call" href="tel:+962780364203">
+            <i class="bi bi-telephone-fill" aria-hidden="true"></i>
+            <span class="u-ltr">+962 78 036 4203</span>
+          </a>
+
+          <button class="icon-btn" id="langToggle" type="button">
+            <i class="bi bi-translate" aria-hidden="true"></i>
+            <span id="langToggleLabel">English</span>
+          </button>
+        </div>
       </div>
     </div>
-  </nav>
+  </header>
 
   <main id="main">
 
-    <!-- ============ HERO ============ -->
-    <section id="hero" class="hero-honey">
-      <div class="hero-honey-media">
-        <img src="assets/img/products/collection-hero.jpg" alt="A stacked collection of jars of natural honey" loading="eager" fetchpriority="high">
-        <div class="hero-honey-overlay" aria-hidden="true"></div>
+    <!-- ============================ HERO ============================ -->
+    <section class="hero">
+      <div class="hero-media">
+        <img src="assets/img/products/collection-hero.jpg" alt="" fetchpriority="high">
+        <div class="hero-scrim" aria-hidden="true"></div>
       </div>
-      <div class="container hero-honey-content reveal">
-        <p class="eyebrow mb-2"><i class="bi bi-flower1" aria-hidden="true"></i> <span data-ar="خام وطبيعي">Raw &amp; Natural</span></p>
-        <h1 class="display-5 fw-bold lh-sm mb-3" data-ar="عسل نقي، مباشرة من الخلية">Pure Honey, Straight From the Hive</h1>
-        <p class="lead mb-4" data-ar="عرض مصغّر لمنتجاتنا من العسل ومنتجات النحل — عسل السدر والجبلي والمرار والكينا، وشمع العسل، وحبوب اللقاح، والبروبوليس، وغذاء ملكات النحل، وشمع النحل. هذه صفحة عرض مبدئية، والطلب عبر الإنترنت قادم قريبًا.">
-          A small showcase of our honey and bee products — Sidr, Jabali, Marrar and Kina honey,
-          honeycomb, bee pollen, propolis, royal jelly and beeswax. This is a preview page for now;
-          online ordering is on the way.
+      <div class="container-hb hero-inner">
+        <p class="eyebrow" data-ar="خام وطبيعي">Raw and Natural</p>
+        <h1 class="hero-title" data-ar="عسل نقي، مباشرة من الخلية">Pure Honey, Straight From the Hive</h1>
+        <p class="hero-lead" data-ar="عسل خام ومنتجات نحل نجمعها بأنفسنا ونعبّئها بكميات صغيرة. للاستلام من الزرقاء أو عمّان.">
+          Raw honey and bee products we harvest ourselves and pack in small batches. Collect in person from Zarqa or Amman.
         </p>
-        <div class="d-flex flex-wrap gap-2">
-          <a class="btn btn-honey btn-lg" href="#products">
-            <i class="bi bi-grid me-2" aria-hidden="true"></i><span data-ar="تصفّح المنتجات">View Products</span>
+        <div class="hero-actions">
+          <a class="btn-hb btn-gold" href="#products">
+            <i class="bi bi-basket2" aria-hidden="true"></i><span data-ar="تصفّح المنتجات">Shop now</span>
           </a>
-          <a class="btn btn-outline-honey btn-lg" href="#about">
-            <i class="bi bi-info-circle me-2" aria-hidden="true"></i><span data-ar="قصتنا">Our Story</span>
-          </a>
+          <a class="btn-hb btn-ghost-gold" href="#about" data-ar="قصتنا">Our Story</a>
         </div>
       </div>
     </section>
 
-    <!-- ============ PRODUCTS ============ -->
-    <section id="products" class="section-pad">
-      <div class="container">
-        <header class="section-head reveal">
+    <!-- ============================ WHY US ============================ -->
+    <section class="section section--cream">
+      <div class="container-hb">
+        <div class="value-grid">
+          <div class="value-card reveal">
+            <div class="value-icon"><i class="bi bi-flower1" aria-hidden="true"></i></div>
+            <h3 data-ar="طبيعي ١٠٠٪">100% Natural</h3>
+            <p data-ar="بدون سكر مضاف ولا إضافات. عسل فقط كما أنتجه النحل.">No added sugar, no additives. Only honey, exactly as the bees made it.</p>
+          </div>
+          <div class="value-card reveal">
+            <div class="value-icon"><i class="bi bi-droplet-half" aria-hidden="true"></i></div>
+            <h3 data-ar="خام وغير مفلتر">Raw and Unfiltered</h3>
+            <p data-ar="غير مبستر، ليحتفظ بنكهته وخصائصه الطبيعية كاملة.">Unpasteurised, so it keeps its full flavour and natural properties.</p>
+          </div>
+          <div class="value-card reveal">
+            <div class="value-icon"><i class="bi bi-house-heart" aria-hidden="true"></i></div>
+            <h3 data-ar="حصاد عائلي">Family Harvested</h3>
+            <p data-ar="نعتني بالخلايا ونحصد العسل بأنفسنا، بكميات صغيرة.">We tend the hives and harvest the honey ourselves, in small batches.</p>
+          </div>
+          <div class="value-card reveal">
+            <div class="value-icon"><i class="bi bi-geo-alt" aria-hidden="true"></i></div>
+            <h3 data-ar="استلام باليد">Collect in person</h3>
+            <p data-ar="اتفق معنا على الطلب واستلمه من الزرقاء أو عمّان.">Arrange your order with us and collect it from Zarqa or Amman.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ PRODUCTS ============================ -->
+    <section id="products" class="section section--beige">
+      <div class="container-hb">
+        <header class="section-head section-head--center reveal">
+          <p class="eyebrow" data-ar="من حصادنا">Our harvest</p>
           <h2 class="section-title" data-ar="منتجاتنا">Our Products</h2>
-          <p class="section-sub" data-ar="كل عبوة تشاهدها هنا منتج حقيقي من حصادنا. الأوصاف أدناه.">
-            Every jar and jar label you see is a real product from our own harvest. Descriptions below
-            are placeholders — real product details are coming soon.
+          <p class="section-sub" data-ar="كل الأصناف تُباع بالوزن بنفس السعر — الكيلو ١٥ دينارًا، ونصف الكيلو ٧٫٥ دينار.">
+            Everything is sold by weight at the same rate — 15 JOD per kilo, 7.5 for a half.
           </p>
         </header>
 
-        <div class="row g-4">
+        <div class="product-grid">
 
-          <div class="col-sm-6 col-lg-4 reveal">
-            <article class="product-card h-100">
-              <div class="product-img-wrap">
-                <img src="assets/img/products/honey-sidr.jpg" alt="Jar of Sidr honey" loading="lazy">
+          <article class="product-card reveal">
+            <div class="product-media">
+              <img src="assets/img/products/honey-sidr.jpg" alt="عسل السدر" loading="lazy" decoding="async">
+            </div>
+            <div class="product-body">
+              <h3 class="product-name" data-ar="عسل السدر">Sidr Honey</h3>
+              <p class="product-desc" data-ar="عسل غني برائحة عطرية عميقة وقوام كثيف ومذاق قوي يدوم طويلًا. من أثمن ما نحصده.">A rich, deeply aromatic honey with a thick texture and a bold, lasting flavour. One of our most prized harvests.</p>
+              <div class="product-foot">
+                <p class="price"><span class="u-nowrap">15 <span data-ar="د.أ">JOD</span></span> <small data-ar="/ كيلو">/ kg</small></p>
+                <button type="button" class="btn-hb btn-gold btn-sm-hb js-order" data-name-ar="عسل السدر" data-name-en="Sidr Honey">
+                  <i class="bi bi-whatsapp" aria-hidden="true"></i><span data-ar="اطلب">Order</span>
+                </button>
               </div>
-              <div class="product-body">
-                <span class="product-name-ar" dir="rtl" lang="ar">عسل السدر</span>
-                <h3 class="h5" data-ar="عسل السدر">Sidr Honey</h3>
-                <p class="text-body-secondary" data-ar="عسل غني برائحة عطرية عميقة وقوام كثيف ومذاق قوي يدوم طويلًا. من أثمن ما نحصده.">
-                  A rich, deeply aromatic honey with a thick texture and a bold, lasting flavor.
-                  One of our most prized harvests.
-                </p>
-              </div>
-            </article>
-          </div>
+            </div>
+          </article>
 
-          <div class="col-sm-6 col-lg-4 reveal">
-            <article class="product-card h-100">
-              <div class="product-img-wrap">
-                <img src="assets/img/products/honey-jabali.jpg" alt="Jar of Jabali mountain honey" loading="lazy">
+          <article class="product-card reveal">
+            <div class="product-media">
+              <img src="assets/img/products/honey-jabali.jpg" alt="عسل جبلي" loading="lazy" decoding="async">
+            </div>
+            <div class="product-body">
+              <h3 class="product-name" data-ar="عسل جبلي">Jabali Honey (Mountain)</h3>
+              <p class="product-desc" data-ar="عسل جبلي بري من أزهار المرتفعات النائية. خفيف وزهري وناعم.">Wild mountain honey collected from remote highland blooms. Light, floral, and smooth.</p>
+              <div class="product-foot">
+                <p class="price"><span class="u-nowrap">15 <span data-ar="د.أ">JOD</span></span> <small data-ar="/ كيلو">/ kg</small></p>
+                <button type="button" class="btn-hb btn-gold btn-sm-hb js-order" data-name-ar="عسل جبلي" data-name-en="Jabali Honey">
+                  <i class="bi bi-whatsapp" aria-hidden="true"></i><span data-ar="اطلب">Order</span>
+                </button>
               </div>
-              <div class="product-body">
-                <span class="product-name-ar" dir="rtl" lang="ar">عسل جبلي</span>
-                <h3 class="h5" data-ar="عسل جبلي">Jabali Honey (Mountain)</h3>
-                <p class="text-body-secondary" data-ar="عسل جبلي بري من أزهار المرتفعات النائية. خفيف وزهري وناعم.">
-                  Wild mountain honey collected from remote highland blooms. Light, floral, and smooth.
-                </p>
-              </div>
-            </article>
-          </div>
+            </div>
+          </article>
 
-          <div class="col-sm-6 col-lg-4 reveal">
-            <article class="product-card h-100">
-              <div class="product-img-wrap">
-                <img src="assets/img/products/honey-marrar.jpg" alt="Jar of Marrar honey" loading="lazy">
+          <article class="product-card reveal">
+            <div class="product-media">
+              <img src="assets/img/products/honey-marrar.jpg" alt="عسل مرار" loading="lazy" decoding="async">
+            </div>
+            <div class="product-body">
+              <h3 class="product-name" data-ar="عسل مرار">Marrar Honey</h3>
+              <p class="product-desc" data-ar="عسل ذهبي مميّز بلمسة مرارة خفيفة، معروف برائحته القوية.">A distinctive golden honey with a slightly bitter edge, prized for its intense aroma.</p>
+              <div class="product-foot">
+                <p class="price"><span class="u-nowrap">15 <span data-ar="د.أ">JOD</span></span> <small data-ar="/ كيلو">/ kg</small></p>
+                <button type="button" class="btn-hb btn-gold btn-sm-hb js-order" data-name-ar="عسل مرار" data-name-en="Marrar Honey">
+                  <i class="bi bi-whatsapp" aria-hidden="true"></i><span data-ar="اطلب">Order</span>
+                </button>
               </div>
-              <div class="product-body">
-                <span class="product-name-ar" dir="rtl" lang="ar">عسل مرار</span>
-                <h3 class="h5" data-ar="عسل المرار">Marrar Honey</h3>
-                <p class="text-body-secondary" data-ar="عسل ذهبي مميّز بلمسة مرارة خفيفة، معروف برائحته القوية.">
-                  A distinctive golden honey with a slightly bitter edge, prized for its intense aroma.
-                </p>
-              </div>
-            </article>
-          </div>
+            </div>
+          </article>
 
-          <div class="col-sm-6 col-lg-4 reveal">
-            <article class="product-card h-100">
-              <div class="product-img-wrap">
-                <img src="assets/img/products/honey-kina.jpg" alt="Jar of Kina eucalyptus honey" loading="lazy">
+          <article class="product-card reveal">
+            <div class="product-media">
+              <img src="assets/img/products/honey-kina.jpg" alt="عسل كينا" loading="lazy" decoding="async">
+            </div>
+            <div class="product-body">
+              <h3 class="product-name" data-ar="عسل كينا">Kina Honey (Eucalyptus)</h3>
+              <p class="product-desc" data-ar="عسل أزهار الكينا بنكهة عشبية منعشة ولون كهرماني صافٍ.">Eucalyptus blossom honey with a fresh, herbal note and a clear amber tone.</p>
+              <div class="product-foot">
+                <p class="price"><span class="u-nowrap">15 <span data-ar="د.أ">JOD</span></span> <small data-ar="/ كيلو">/ kg</small></p>
+                <button type="button" class="btn-hb btn-gold btn-sm-hb js-order" data-name-ar="عسل كينا" data-name-en="Kina Honey">
+                  <i class="bi bi-whatsapp" aria-hidden="true"></i><span data-ar="اطلب">Order</span>
+                </button>
               </div>
-              <div class="product-body">
-                <span class="product-name-ar" dir="rtl" lang="ar">عسل كينا</span>
-                <h3 class="h5" data-ar="عسل الكينا">Kina Honey (Eucalyptus)</h3>
-                <p class="text-body-secondary" data-ar="عسل أزهار الكينا بنكهة عشبية منعشة ولون كهرماني صافٍ.">
-                  Eucalyptus blossom honey with a fresh, herbal note and a clear amber tone.
-                </p>
-              </div>
-            </article>
-          </div>
+            </div>
+          </article>
 
-          <div class="col-sm-6 col-lg-4 reveal">
-            <article class="product-card h-100">
-              <div class="product-img-wrap">
-                <img src="assets/img/products/honeycomb-raw.jpg" alt="Raw honeycomb on a wooden frame" loading="lazy">
+          <article class="product-card reveal">
+            <div class="product-media">
+              <img src="assets/img/products/honeycomb-raw.jpg" alt="شمع عسل طبيعي" loading="lazy" decoding="async">
+            </div>
+            <div class="product-body">
+              <h3 class="product-name" data-ar="شمع عسل طبيعي">Raw Honeycomb</h3>
+              <p class="product-desc" data-ar="مباشرة من الخلية — شمع عسل طبيعي ما زال على الإطار، دون معالجة وبكامل نكهته.">Straight from the hive — natural honeycomb still on the frame, unprocessed and full of flavour.</p>
+              <div class="product-foot">
+                <p class="price"><span class="u-nowrap">15 <span data-ar="د.أ">JOD</span></span> <small data-ar="/ كيلو">/ kg</small></p>
+                <button type="button" class="btn-hb btn-gold btn-sm-hb js-order" data-name-ar="شمع عسل طبيعي" data-name-en="Raw Honeycomb">
+                  <i class="bi bi-whatsapp" aria-hidden="true"></i><span data-ar="اطلب">Order</span>
+                </button>
               </div>
-              <div class="product-body">
-                <span class="product-name-ar" dir="rtl" lang="ar">شمع عسل طبيعي</span>
-                <h3 class="h5" data-ar="شمع عسل طبيعي">Raw Honeycomb</h3>
-                <p class="text-body-secondary" data-ar="مباشرة من الخلية — شمع عسل طبيعي ما زال على الإطار، دون معالجة وبكامل نكهته.">
-                  Straight from the hive — natural honeycomb still on the frame, unprocessed and full of flavor.
-                </p>
-              </div>
-            </article>
-          </div>
+            </div>
+          </article>
 
-          <div class="col-sm-6 col-lg-4 reveal">
-            <article class="product-card h-100">
-              <div class="product-img-wrap">
-                <img src="assets/img/products/honeycomb-cut.jpg" alt="Cut squares of comb honey" loading="lazy">
+          <article class="product-card reveal">
+            <div class="product-media">
+              <img src="assets/img/products/honeycomb-cut.jpg" alt="قطع شمع العسل" loading="lazy" decoding="async">
+            </div>
+            <div class="product-body">
+              <h3 class="product-name" data-ar="قطع شمع العسل">Cut Comb Honey</h3>
+              <p class="product-desc" data-ar="قطع مرتّبة من شمع العسل جاهزة للتقديم — امضغ الشمع للاستمتاع بحلاوة طبيعية.">Neatly cut comb honey squares, ready to serve — chew the wax for a naturally sweet treat.</p>
+              <div class="product-foot">
+                <p class="price"><span class="u-nowrap">15 <span data-ar="د.أ">JOD</span></span> <small data-ar="/ كيلو">/ kg</small></p>
+                <button type="button" class="btn-hb btn-gold btn-sm-hb js-order" data-name-ar="قطع شمع العسل" data-name-en="Cut Comb Honey">
+                  <i class="bi bi-whatsapp" aria-hidden="true"></i><span data-ar="اطلب">Order</span>
+                </button>
               </div>
-              <div class="product-body">
-                <span class="product-name-ar" dir="rtl" lang="ar">قطع شمع العسل</span>
-                <h3 class="h5" data-ar="قطع شمع العسل">Cut Comb Honey</h3>
-                <p class="text-body-secondary" data-ar="قطع مرتّبة من شمع العسل جاهزة للتقديم — امضغ الشمع للاستمتاع بحلاوة طبيعية.">
-                  Neatly cut comb honey squares, ready to serve — chew the wax for a naturally sweet treat.
-                </p>
-              </div>
-            </article>
-          </div>
+            </div>
+          </article>
 
-          <div class="col-sm-6 col-lg-4 reveal">
-            <article class="product-card h-100">
-              <div class="product-img-wrap">
-                <img src="assets/img/products/bee-pollen.jpg" alt="Small packaged cups of bee pollen" loading="lazy">
+          <article class="product-card reveal">
+            <div class="product-media">
+              <img src="assets/img/products/bee-pollen.jpg" alt="حبوب لقاح النحل" loading="lazy" decoding="async">
+            </div>
+            <div class="product-body">
+              <h3 class="product-name" data-ar="حبوب لقاح النحل">Bee Pollen</h3>
+              <p class="product-desc" data-ar="حبيبات غنية بالعناصر الغذائية يجمعها النحل بنفسه، معبّأة طازجة بكميات صغيرة.">Nutrient-dense granules collected by the bees themselves, packed fresh in small portions.</p>
+              <div class="product-foot">
+                <p class="price"><span class="u-nowrap">15 <span data-ar="د.أ">JOD</span></span> <small data-ar="/ كيلو">/ kg</small></p>
+                <button type="button" class="btn-hb btn-gold btn-sm-hb js-order" data-name-ar="حبوب لقاح النحل" data-name-en="Bee Pollen">
+                  <i class="bi bi-whatsapp" aria-hidden="true"></i><span data-ar="اطلب">Order</span>
+                </button>
               </div>
-              <div class="product-body">
-                <span class="product-name-ar" dir="rtl" lang="ar">حبوب لقاح النحل</span>
-                <h3 class="h5" data-ar="حبوب لقاح النحل">Bee Pollen</h3>
-                <p class="text-body-secondary" data-ar="حبيبات غنية بالعناصر الغذائية يجمعها النحل بنفسه، معبّأة طازجة بكميات صغيرة.">
-                  Nutrient-dense granules collected by the bees themselves, packed fresh in small portions.
-                </p>
-              </div>
-            </article>
-          </div>
+            </div>
+          </article>
 
-          <div class="col-sm-6 col-lg-4 reveal">
-            <article class="product-card h-100">
-              <div class="product-img-wrap">
-                <img src="assets/img/products/propolis.jpg" alt="Raw bee propolis chunks in a wooden bowl" loading="lazy">
+          <article class="product-card reveal">
+            <div class="product-media">
+              <img src="assets/img/products/propolis.jpg" alt="بروبوليس" loading="lazy" decoding="async">
+            </div>
+            <div class="product-body">
+              <h3 class="product-name" data-ar="بروبوليس">Propolis</h3>
+              <p class="product-desc" data-ar="بروبوليس نحل خام، صمغ الخلية الطبيعي، معروف تقليديًا بخصائصه.">Raw bee propolis, the hive's natural resin, traditionally valued for its properties.</p>
+              <div class="product-foot">
+                <p class="price"><span class="u-nowrap">15 <span data-ar="د.أ">JOD</span></span> <small data-ar="/ كيلو">/ kg</small></p>
+                <button type="button" class="btn-hb btn-gold btn-sm-hb js-order" data-name-ar="بروبوليس" data-name-en="Propolis">
+                  <i class="bi bi-whatsapp" aria-hidden="true"></i><span data-ar="اطلب">Order</span>
+                </button>
               </div>
-              <div class="product-body">
-                <span class="product-name-ar" dir="rtl" lang="ar">بروبوليس</span>
-                <h3 class="h5" data-ar="البروبوليس">Propolis</h3>
-                <p class="text-body-secondary" data-ar="بروبوليس نحل خام، صمغ الخلية الطبيعي، معروف تقليديًا بخصائصه.">
-                  Raw bee propolis, the hive's natural resin, traditionally valued for its properties.
-                </p>
-              </div>
-            </article>
-          </div>
+            </div>
+          </article>
 
-          <div class="col-sm-6 col-lg-4 reveal">
-            <article class="product-card h-100">
-              <div class="product-img-wrap">
-                <img src="assets/img/products/royal-jelly.jpg" alt="Fresh royal jelly in a small container" loading="lazy">
+          <article class="product-card reveal">
+            <div class="product-media">
+              <img src="assets/img/products/royal-jelly.jpg" alt="غذاء ملكات النحل" loading="lazy" decoding="async">
+            </div>
+            <div class="product-body">
+              <h3 class="product-name" data-ar="غذاء ملكات النحل">Royal Jelly</h3>
+              <p class="product-desc" data-ar="غذاء ملكي طازج، مادة غنية بالعناصر ينتجها النحل العامل لتغذية الملكة.">Fresh royal jelly, the nutrient-rich substance produced by worker bees to feed the queen.</p>
+              <div class="product-foot">
+                <p class="price"><span class="u-nowrap">15 <span data-ar="د.أ">JOD</span></span> <small data-ar="/ كيلو">/ kg</small></p>
+                <button type="button" class="btn-hb btn-gold btn-sm-hb js-order" data-name-ar="غذاء ملكات النحل" data-name-en="Royal Jelly">
+                  <i class="bi bi-whatsapp" aria-hidden="true"></i><span data-ar="اطلب">Order</span>
+                </button>
               </div>
-              <div class="product-body">
-                <span class="product-name-ar" dir="rtl" lang="ar">غذاء ملكات النحل</span>
-                <h3 class="h5" data-ar="غذاء ملكات النحل">Royal Jelly</h3>
-                <p class="text-body-secondary" data-ar="غذاء ملكي طازج، مادة غنية بالعناصر ينتجها النحل العامل لتغذية الملكة.">
-                  Fresh royal jelly, the nutrient-rich substance produced by worker bees to feed the queen.
-                </p>
-              </div>
-            </article>
-          </div>
+            </div>
+          </article>
 
-          <div class="col-sm-6 col-lg-4 reveal mx-auto">
-            <article class="product-card h-100">
-              <div class="product-img-wrap">
-                <img src="assets/img/products/beeswax.jpg" alt="Container of natural honey wax" loading="lazy">
+          <article class="product-card reveal">
+            <div class="product-media">
+              <span class="badge-hb badge-out" data-ar="غير متوفر">Out of Stock</span>
+              <img src="assets/img/products/beeswax.jpg" alt="شمع نحل نقي" loading="lazy" decoding="async">
+            </div>
+            <div class="product-body">
+              <h3 class="product-name" data-ar="شمع نحل نقي">Pure Beeswax</h3>
+              <p class="product-desc" data-ar="شمع نحل نقي غير مكرر مباشرة من الخلية.">Pure, unrefined beeswax straight from the hive.</p>
+              <div class="product-foot">
+                <p class="price"><span class="u-nowrap">15 <span data-ar="د.أ">JOD</span></span> <small data-ar="/ كيلو">/ kg</small></p>
+                <button type="button" class="btn-hb btn-gold btn-sm-hb js-order" data-name-ar="شمع نحل نقي" data-name-en="Pure Beeswax">
+                  <i class="bi bi-whatsapp" aria-hidden="true"></i><span data-ar="اطلب">Order</span>
+                </button>
               </div>
-              <div class="product-body">
-                <span class="product-name-ar" dir="rtl" lang="ar">شمع نحل نقي</span>
-                <h3 class="h5" data-ar="شمع نحل نقي">Pure Beeswax</h3>
-                <p class="text-body-secondary" data-ar="شمع نحل نقي غير مكرر مباشرة من الخلية.">
-                  Pure, unrefined beeswax straight from the hive.
-                </p>
-              </div>
-            </article>
-          </div>
+            </div>
+          </article>
 
         </div>
       </div>
     </section>
 
-    <!-- ============ STOCK STATUS ============ -->
-    <!--
-      Rows below are the fallback shown before the Google Sheet loads (and if
-      it's ever unreachable). The name and status text in each row is
-      overwritten at runtime by assets/js/main.js, which fetches a published
-      Google Sheet CSV and fills in row 1 of the sheet -> row 1 of this table,
-      row 2 -> row 2, and so on by POSITION. Do not delete or reorder these
-      <tr> rows in the HTML, and the sheet owner should not delete/reorder
-      rows in the spreadsheet either, or a product's photo will end up
-      paired with the wrong name/status.
-    -->
-    <section id="stock" class="section-pad section-alt">
-      <div class="container">
-        <header class="section-head reveal">
+    <!-- ============================ STOCK ============================ -->
+    <section id="stock" class="section section--cream">
+      <div class="container-hb">
+        <header class="section-head section-head--center reveal">
+          <p class="eyebrow" data-ar="محدَّث مباشرة">Live</p>
           <h2 class="section-title" data-ar="حالة التوفّر">Stock Status</h2>
           <p class="section-sub" data-ar="المتوفر حاليًا، محدَّث مباشرة من جدول المخزون لدينا.">
             What's currently available, synced live from our inventory sheet.
           </p>
         </header>
 
-        <div class="table-responsive stock-table-wrap reveal">
-          <table class="table align-middle stock-table">
-            <thead>
-              <tr>
-                <th scope="col" data-ar="الصورة">Photo</th>
-                <th scope="col" data-ar="المنتج">Product</th>
-                <th scope="col" data-ar="الحالة">Status</th>
-                <th scope="col"><span class="visually-hidden" data-ar="تعديل">Edit</span></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr data-row="1">
-                <td><img src="assets/img/products/honey-sidr.jpg" alt="" class="stock-thumb"></td>
-                <td class="stock-name">Product A</td>
-                <td><span class="badge status-in">In Stock</span></td>
-                <td><button type="button" class="btn btn-sm btn-outline-honey stock-edit-btn" data-row="1" aria-label="Edit Product A"><i class="bi bi-pencil" aria-hidden="true"></i></button></td>
-              </tr>
-              <tr data-row="2">
-                <td><img src="assets/img/products/honey-jabali.jpg" alt="" class="stock-thumb"></td>
-                <td class="stock-name">Product B</td>
-                <td><span class="badge status-in">In Stock</span></td>
-                <td><button type="button" class="btn btn-sm btn-outline-honey stock-edit-btn" data-row="2" aria-label="Edit Product B"><i class="bi bi-pencil" aria-hidden="true"></i></button></td>
-              </tr>
-              <tr data-row="3">
-                <td><img src="assets/img/products/honey-marrar.jpg" alt="" class="stock-thumb"></td>
-                <td class="stock-name">Product C</td>
-                <td><span class="badge status-in">In Stock</span></td>
-                <td><button type="button" class="btn btn-sm btn-outline-honey stock-edit-btn" data-row="3" aria-label="Edit Product C"><i class="bi bi-pencil" aria-hidden="true"></i></button></td>
-              </tr>
-              <tr data-row="4">
-                <td><img src="assets/img/products/honey-kina.jpg" alt="" class="stock-thumb"></td>
-                <td class="stock-name">Product D</td>
-                <td><span class="badge status-in">In Stock</span></td>
-                <td><button type="button" class="btn btn-sm btn-outline-honey stock-edit-btn" data-row="4" aria-label="Edit Product D"><i class="bi bi-pencil" aria-hidden="true"></i></button></td>
-              </tr>
-              <tr data-row="6">
-                <td><img src="assets/img/products/honeycomb-cut.jpg" alt="" class="stock-thumb"></td>
-                <td class="stock-name">Product F</td>
-                <td><span class="badge status-in">In Stock</span></td>
-                <td><button type="button" class="btn btn-sm btn-outline-honey stock-edit-btn" data-row="6" aria-label="Edit Product F"><i class="bi bi-pencil" aria-hidden="true"></i></button></td>
-              </tr>
-              <tr data-row="7">
-                <td><img src="assets/img/products/bee-pollen.jpg" alt="" class="stock-thumb"></td>
-                <td class="stock-name">Product G</td>
-                <td><span class="badge status-in">In Stock</span></td>
-                <td><button type="button" class="btn btn-sm btn-outline-honey stock-edit-btn" data-row="7" aria-label="Edit Product G"><i class="bi bi-pencil" aria-hidden="true"></i></button></td>
-              </tr>
-              <tr data-row="8">
-                <td><img src="assets/img/products/propolis.jpg" alt="" class="stock-thumb"></td>
-                <td class="stock-name">Product H</td>
-                <td><span class="badge status-in">In Stock</span></td>
-                <td><button type="button" class="btn btn-sm btn-outline-honey stock-edit-btn" data-row="8" aria-label="Edit Product H"><i class="bi bi-pencil" aria-hidden="true"></i></button></td>
-              </tr>
-              <tr data-row="9">
-                <td><img src="assets/img/products/royal-jelly.jpg" alt="" class="stock-thumb"></td>
-                <td class="stock-name">Product I</td>
-                <td><span class="badge status-in">In Stock</span></td>
-                <td><button type="button" class="btn btn-sm btn-outline-honey stock-edit-btn" data-row="9" aria-label="Edit Product I"><i class="bi bi-pencil" aria-hidden="true"></i></button></td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="panel reveal">
+          <div class="scroll-x">
+            <table class="stock-table">
+              <thead>
+                <tr>
+                  <th scope="col" data-ar="الصورة">Photo</th>
+                  <th scope="col" data-ar="المنتج">Product</th>
+                  <th scope="col" data-ar="الحالة">Status</th>
+                  <th scope="col"><span class="visually-hidden" data-ar="تعديل">Edit</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-row="1">
+                  <td><img src="assets/img/products/honey-sidr.jpg" alt="عسل السدر" class="stock-thumb"></td>
+                  <td class="stock-name">Sidr Honey</td>
+                  <td><span class="badge status-in">In Stock</span></td>
+                  <td><button type="button" class="btn-hb btn-outline btn-sm-hb stock-edit-btn" data-row="1" aria-label="Edit"><i class="bi bi-pencil" aria-hidden="true"></i></button></td>
+                </tr>
+                <tr data-row="2">
+                  <td><img src="assets/img/products/honey-jabali.jpg" alt="عسل جبلي" class="stock-thumb"></td>
+                  <td class="stock-name">Jabali Honey</td>
+                  <td><span class="badge status-in">In Stock</span></td>
+                  <td><button type="button" class="btn-hb btn-outline btn-sm-hb stock-edit-btn" data-row="2" aria-label="Edit"><i class="bi bi-pencil" aria-hidden="true"></i></button></td>
+                </tr>
+                <tr data-row="3">
+                  <td><img src="assets/img/products/honey-marrar.jpg" alt="عسل مرار" class="stock-thumb"></td>
+                  <td class="stock-name">Marrar Honey</td>
+                  <td><span class="badge status-in">In Stock</span></td>
+                  <td><button type="button" class="btn-hb btn-outline btn-sm-hb stock-edit-btn" data-row="3" aria-label="Edit"><i class="bi bi-pencil" aria-hidden="true"></i></button></td>
+                </tr>
+                <tr data-row="4">
+                  <td><img src="assets/img/products/honey-kina.jpg" alt="عسل كينا" class="stock-thumb"></td>
+                  <td class="stock-name">Kina Honey</td>
+                  <td><span class="badge status-in">In Stock</span></td>
+                  <td><button type="button" class="btn-hb btn-outline btn-sm-hb stock-edit-btn" data-row="4" aria-label="Edit"><i class="bi bi-pencil" aria-hidden="true"></i></button></td>
+                </tr>
+                <tr data-row="6">
+                  <td><img src="assets/img/products/honeycomb-cut.jpg" alt="قطع شمع العسل" class="stock-thumb"></td>
+                  <td class="stock-name">Cut Comb Honey</td>
+                  <td><span class="badge status-in">In Stock</span></td>
+                  <td><button type="button" class="btn-hb btn-outline btn-sm-hb stock-edit-btn" data-row="6" aria-label="Edit"><i class="bi bi-pencil" aria-hidden="true"></i></button></td>
+                </tr>
+                <tr data-row="7">
+                  <td><img src="assets/img/products/bee-pollen.jpg" alt="حبوب لقاح النحل" class="stock-thumb"></td>
+                  <td class="stock-name">Bee Pollen</td>
+                  <td><span class="badge status-in">In Stock</span></td>
+                  <td><button type="button" class="btn-hb btn-outline btn-sm-hb stock-edit-btn" data-row="7" aria-label="Edit"><i class="bi bi-pencil" aria-hidden="true"></i></button></td>
+                </tr>
+                <tr data-row="8">
+                  <td><img src="assets/img/products/propolis.jpg" alt="بروبوليس" class="stock-thumb"></td>
+                  <td class="stock-name">Propolis</td>
+                  <td><span class="badge status-in">In Stock</span></td>
+                  <td><button type="button" class="btn-hb btn-outline btn-sm-hb stock-edit-btn" data-row="8" aria-label="Edit"><i class="bi bi-pencil" aria-hidden="true"></i></button></td>
+                </tr>
+                <tr data-row="9">
+                  <td><img src="assets/img/products/royal-jelly.jpg" alt="غذاء ملكات النحل" class="stock-thumb"></td>
+                  <td class="stock-name">Royal Jelly</td>
+                  <td><span class="badge status-in">In Stock</span></td>
+                  <td><button type="button" class="btn-hb btn-outline btn-sm-hb stock-edit-btn" data-row="9" aria-label="Edit"><i class="bi bi-pencil" aria-hidden="true"></i></button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ ABOUT / STORY ============ -->
-    <section id="about" class="section-pad section-alt">
-      <div class="container">
-        <div class="row g-5 align-items-center">
-          <div class="col-lg-6 reveal">
-            <h2 class="section-title" data-ar="قصتنا">Our Story</h2>
-            <p class="lead-sm" data-ar="كل عبوة تشاهدها في هذه الصفحة تأتي من خلايانا وحصادنا. نجهّز حاليًا هذا العرض ليتعرّف الناس على منتجاتنا قبل أن نفتح الطلب عبر الإنترنت. وحتى ذلك الحين، لا تتردد في التواصل معنا مباشرة للشراء.">
-              Every jar you see on this page comes from our own hives and harvest. We're currently
-              putting together this showcase so people can see what we produce before we open up
-              online ordering. In the meantime, feel free to reach out directly if you'd like to buy.
+    <!-- ============================ STORY ============================ -->
+    <section id="about" class="section section--beige">
+      <div class="container-hb">
+        <div class="story-grid">
+          <div class="reveal">
+            <p class="eyebrow" data-ar="قصتنا">Our Story</p>
+            <h2 class="section-title" data-ar="من الخلية إلى مائدتك">From the Hive to Your Table</h2>
+            <p class="section-sub" data-ar="نحن عائلة تعتني بخلاياها بنفسها. نحصد بكميات صغيرة، ونعبّئ العسل كما هو — خامًا وغير مفلتر — دون تسخين أو إضافات. ما تراه هنا هو ما نأكله في بيتنا.">
+              We are a family that tends its own hives. We harvest in small batches and jar the honey exactly as it comes — raw and unfiltered, with no heating and nothing added. What you see here is what we eat at home.
             </p>
-            <div class="row g-3 about-facts">
-              <div class="col-6 col-xl-4">
-                <div class="fact-card">
-                  <i class="bi bi-flower3" aria-hidden="true"></i>
-                  <span class="fact-value" data-ar="طبيعي ١٠٠٪">100% Natural</span>
-                </div>
-              </div>
-              <div class="col-6 col-xl-4">
-                <div class="fact-card">
-                  <i class="bi bi-droplet" aria-hidden="true"></i>
-                  <span class="fact-value" data-ar="خام وغير مفلتر">Raw &amp; Unfiltered</span>
-                </div>
-              </div>
-              <div class="col-6 col-xl-4">
-                <div class="fact-card">
-                  <i class="bi bi-house-heart" aria-hidden="true"></i>
-                  <span class="fact-value" data-ar="حصاد عائلي">Family Harvested</span>
-                </div>
-              </div>
+            <div class="row-wrap" style="margin-block-start:1.75rem">
+              <a class="btn-hb btn-choc" href="#products" data-ar="شاهد المنتجات">View Products</a>
+              <a class="btn-hb btn-outline" href="#contact" data-ar="تواصل معنا">Contact</a>
             </div>
           </div>
-          <div class="col-lg-6 reveal">
-            <img src="assets/img/products/honeycomb-cut.jpg" alt="Squares of natural comb honey" class="about-img">
+          <div class="reveal">
+            <img class="story-img" src="assets/img/products/honeycomb-cut.jpg" alt="شمع عسل طازج من الخلية" loading="lazy">
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ CONTACT ============ -->
-    <section id="contact" class="section-pad">
-      <div class="container">
-        <header class="section-head reveal">
-          <h2 class="section-title" data-ar="تواصل معنا">Get in Touch</h2>
-          <p class="section-sub" data-ar="الطلب عبر الإنترنت غير متاح بعد — تواصل معنا مباشرة للاستفسار عن منتجاتنا.">Online ordering isn't set up yet — for now, reach out directly to ask about our products.</p>
+    <!-- ============================ CONTACT ============================ -->
+    <section id="contact" class="section section--choc">
+      <div class="container-hb">
+        <header class="section-head section-head--center reveal">
+          <p class="eyebrow" data-ar="تواصل معنا">Contact</p>
+          <h2 class="section-title" style="color:#fff" data-ar="للتواصل والطلب">Get in Touch</h2>
+          <p class="section-sub" style="color:rgba(240,230,206,.8)" data-ar="راسلنا على واتساب أو اتصل بنا مباشرة، ونتفق على الطلب والاستلام.">
+            Message us on WhatsApp or call directly, and we'll arrange your order and collection.
+          </p>
         </header>
 
-        <div class="row g-4 reveal">
-          <div class="col-lg-8">
-            <ul class="contact-list list-unstyled">
-              <li>
-                <i class="bi bi-telephone" aria-hidden="true"></i>
-                <div>
-                  <span class="contact-label" data-ar="للتواصل والطلب">To contact &amp; order</span>
-                  <a href="tel:+962780364203" dir="ltr">+962 78 036 4203</a>
-                </div>
-              </li>
-              <li>
-                <i class="bi bi-envelope-at" aria-hidden="true"></i>
-                <div>
-                  <span class="contact-label" data-ar="البريد الإلكتروني">Email</span>
-                  <a href="mailto:khaledehmide3@gmail.com" dir="ltr">khaledehmide3@gmail.com</a>
-                </div>
-              </li>
-              <li>
-                <i class="bi bi-geo-alt" aria-hidden="true"></i>
-                <div>
-                  <span class="contact-label" data-ar="للاستلام">For pickup</span>
-                  <a class="map-link" href="https://maps.app.goo.gl/UuvNrKQxXjKx1o1f6" target="_blank" rel="noopener"><span data-ar="الزرقاء">Zarqa</span><i class="bi bi-box-arrow-up-right ms-1 small" aria-hidden="true"></i></a>
-                  <a class="map-link" href="https://maps.app.goo.gl/xeYEDQJXoHxU7vnY8" target="_blank" rel="noopener"><span data-ar="عمّان">Amman</span><i class="bi bi-box-arrow-up-right ms-1 small" aria-hidden="true"></i></a>
-                </div>
-              </li>
-            </ul>
-          </div>
+        <div class="narrow-md">
+          <ul class="contact-list">
+            <li class="contact-item reveal">
+              <i class="bi bi-telephone-fill" aria-hidden="true"></i>
+              <div>
+                <span class="contact-label" data-ar="للتواصل والطلب">To contact and order</span>
+                <a class="u-ltr" href="tel:+962780364203">+962 78 036 4203</a>
+              </div>
+            </li>
+            <li class="contact-item reveal">
+              <i class="bi bi-envelope-at-fill" aria-hidden="true"></i>
+              <div>
+                <span class="contact-label" data-ar="البريد الإلكتروني">Email</span>
+                <a class="u-ltr" href="mailto:khaledehmide3@gmail.com">khaledehmide3@gmail.com</a>
+              </div>
+            </li>
+            <li class="contact-item reveal">
+              <i class="bi bi-geo-alt-fill" aria-hidden="true"></i>
+              <div>
+                <span class="contact-label" data-ar="للاستلام">For pickup</span>
+                <a class="map-link" href="https://maps.app.goo.gl/UuvNrKQxXjKx1o1f6" target="_blank" rel="noopener">
+                  <span data-ar="الموقع الأول، الزرقاء">First location, Zarqa</span> <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+                </a>
+                <a class="map-link" href="https://maps.app.goo.gl/xeYEDQJXoHxU7vnY8" target="_blank" rel="noopener">
+                  <span data-ar="الموقع الثاني، عمّان">Second location, Amman</span> <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+                </a>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- ============ FOOTER ============ -->
+  <!-- ============================ FOOTER ============================ -->
   <footer class="site-footer">
-    <div class="container">
-      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
-        <p class="mb-0 small text-body-secondary">
-          &copy; <span id="year">2026</span>
-          <span data-ar="متجر عسل النحل. جميع الحقوق محفوظة.">HoneyBee Shop. All rights reserved.</span>
-        </p>
-        <p class="mb-0 small text-body-secondary" data-ar="موقع عرض — المتجر الإلكتروني قريبًا.">Preview site — online store coming soon.</p>
+    <div class="container-hb">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">🍯 <span data-ar="متجر عسل النحل">HoneyBee Shop</span></div>
+          <p class="footer-text" data-ar="عسل خام ومنتجات نحل، نحصدها ونعبّئها بأنفسنا بكميات صغيرة.">
+            Raw honey and bee products, harvested and packed by us in small batches.
+          </p>
+        </div>
+        <div>
+          <div class="footer-title" data-ar="تصفّح">Explore</div>
+          <ul class="footer-list">
+            <li><a href="#products" data-ar="المنتجات">Products</a></li>
+            <li><a href="#stock" data-ar="حالة التوفّر">Availability</a></li>
+            <li><a href="#about" data-ar="قصتنا">Our Story</a></li>
+            <li><a href="#contact" data-ar="تواصل معنا">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-title" data-ar="للتواصل والطلب">To contact and order</div>
+          <ul class="footer-list">
+            <li><a class="u-ltr" href="tel:+962780364203">+962 78 036 4203</a></li>
+            <li><a class="u-ltr" href="mailto:khaledehmide3@gmail.com">khaledehmide3@gmail.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span id="year">2026</span> <span data-ar="متجر عسل النحل. جميع الحقوق محفوظة.">HoneyBee Shop. All rights reserved.</span></span>
+        <span><span data-ar="الزرقاء">Zarqa</span> · <span data-ar="عمّان">Amman</span></span>
       </div>
     </div>
   </footer>
 
-  <!-- ============ IMAGE LIGHTBOX ============ -->
-  <div class="modal fade" id="imageLightbox" tabindex="-1" aria-labelledby="imageLightboxLabel" aria-hidden="true">
+  <a class="wa-float" href="https://wa.me/962799423449" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <i class="bi bi-whatsapp" aria-hidden="true"></i>
+  </a>
+
+  <button id="backToTop" class="back-to-top" type="button" aria-label="Back to top">
+    <i class="bi bi-arrow-up" aria-hidden="true"></i>
+  </button>
+
+  <!-- ============================ MODALS ============================ -->
+  <div class="modal fade" id="imageLightbox" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content lightbox-content">
-        <button type="button" class="btn-close btn-close-white lightbox-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close lightbox-close" data-bs-dismiss="modal" aria-label="Close"></button>
         <img src="" alt="" class="lightbox-img" id="lightboxImg">
         <p class="lightbox-caption" id="lightboxLabel"></p>
       </div>
     </div>
   </div>
 
-  <!-- ============ ROLE GATE (Buyer / Owner) ============ -->
-  <div class="modal fade" id="roleGateModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="roleGateModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+  <div class="modal fade" id="roleGateModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
       <div class="modal-content">
         <div class="modal-body text-center p-4">
-          <p class="fs-1 mb-2" aria-hidden="true">🍯</p>
           <h2 class="h5 mb-3" id="roleGateModalLabel" data-ar="أهلًا بك في متجر عسل النحل">Welcome to HoneyBee Shop</h2>
-          <p class="text-body-secondary mb-4" data-ar="لنعرف فقط كيف نعرض لك الموقع —">Just so we know how to show you the site —</p>
-
+          <p class="small mb-3" data-ar="هل أنت مشترٍ أم صاحب المتجر؟">Are you a buyer or the shop owner?</p>
           <div id="roleGateChoice" class="d-grid gap-2">
-            <button type="button" class="btn btn-honey btn-lg" id="roleGateBuyerBtn" data-ar="أنا مشترٍ">I'm a Buyer</button>
-            <button type="button" class="btn btn-outline-honey btn-lg" id="roleGateOwnerBtn" data-ar="أنا صاحب المتجر">I'm the Owner</button>
+            <button type="button" class="btn-hb btn-gold btn-block" id="roleGateBuyerBtn" data-ar="أنا مشترٍ">I'm a Buyer</button>
+            <button type="button" class="btn-hb btn-outline btn-block" id="roleGateOwnerBtn" data-ar="أنا صاحب المتجر">I'm the Owner</button>
           </div>
-
           <form id="roleGatePasscodeForm" class="d-none mt-3" novalidate>
-            <label for="roleGatePasscode" class="form-label" data-ar="أدخل رمز المالك">Enter owner passcode</label>
+            <label class="form-label small" for="roleGatePasscode" data-ar="رمز الدخول">Passcode</label>
             <input type="password" class="form-control mb-2" id="roleGatePasscode" autocomplete="off" required>
             <p class="small text-danger d-none mb-2" id="roleGateError" role="alert"></p>
-            <button type="submit" class="btn btn-honey w-100 mb-2" data-ar="متابعة">Continue</button>
+            <button type="submit" class="btn-hb btn-gold btn-block" data-ar="دخول">Enter</button>
             <button type="button" class="btn btn-link btn-sm" id="roleGateBackBtn" data-ar="رجوع">Back</button>
           </form>
         </div>
@@ -517,8 +534,7 @@
     </div>
   </div>
 
-  <!-- ============ STOCK EDIT POPUP ============ -->
-  <div class="modal fade" id="stockEditModal" tabindex="-1" aria-labelledby="stockEditModalLabel" aria-hidden="true">
+  <div class="modal fade" id="stockEditModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -529,30 +545,25 @@
           <form id="stockEditForm" novalidate>
             <input type="hidden" id="stockEditRow">
             <div class="mb-3">
-              <label for="stockEditName" class="form-label" data-ar="اسم المنتج">Product name</label>
+              <label class="form-label" for="stockEditName" data-ar="اسم المنتج">Product name</label>
               <input type="text" class="form-control" id="stockEditName" required>
             </div>
             <div class="mb-3">
-              <label for="stockEditStatus" class="form-label" data-ar="الحالة">Status</label>
+              <label class="form-label" for="stockEditStatus" data-ar="الحالة">Status</label>
               <select class="form-select" id="stockEditStatus">
                 <option value="In Stock" data-ar="متوفر">In Stock</option>
                 <option value="Out of Stock" data-ar="غير متوفر">Out of Stock</option>
               </select>
             </div>
             <p class="small text-danger d-none mb-3" id="stockEditError" role="alert"></p>
-            <button type="submit" class="btn btn-honey w-100" id="stockEditSubmit" data-ar="حفظ">Save</button>
+            <button type="submit" class="btn-hb btn-gold btn-block" id="stockEditSubmit" data-ar="حفظ">Save</button>
           </form>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Back to top -->
-  <button id="backToTop" class="btn btn-honey back-to-top" type="button" aria-label="Back to top" title="Back to top">
-    <i class="bi bi-arrow-up" aria-hidden="true"></i>
-  </button>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="assets/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
 </html>

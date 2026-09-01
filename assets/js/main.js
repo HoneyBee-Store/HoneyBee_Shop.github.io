@@ -128,24 +128,13 @@
     });
   }
 
-  // Follow the OS theme until the visitor picks one explicitly.
-  if (window.matchMedia) {
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
-      var stored = null;
-      try { stored = localStorage.getItem('theme'); } catch (err) { /* storage blocked */ }
-      if (stored) return;
-      var theme = e.matches ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-bs-theme', theme);
-      syncToggleUI(theme);
-    });
-  }
 
   /* ---------------------------------------------------------------
      2. Navbar: shadow on scroll + active section highlighting
   --------------------------------------------------------------- */
-  var nav = document.getElementById('siteNav');
+  var nav = document.querySelector('.site-header');
   var navLinks = Array.prototype.slice.call(
-    document.querySelectorAll('.site-nav .nav-link[href^="#"]')
+    document.querySelectorAll('.nav-links .nav-link[href^="#"]')
   );
   var sections = navLinks
     .map(function (link) { return document.querySelector(link.getAttribute('href')); })
@@ -219,22 +208,35 @@
     backToTop.addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
       // Return focus to the top of the page for keyboard/screen-reader users.
-      var brand = document.querySelector('.navbar-brand');
+      var brand = document.querySelector('.brand');
       if (brand) brand.focus({ preventScroll: true });
     });
   }
 
   /* ---------------------------------------------------------------
-     4. Close the mobile menu after choosing a link
+     4. Mobile menu — the storefront navbar is not a Bootstrap collapse,
+     so it is opened and closed here.
   --------------------------------------------------------------- */
-  var collapseEl = document.getElementById('navLinks');
-  if (collapseEl && window.bootstrap) {
-    navLinks.forEach(function (link) {
-      link.addEventListener('click', function () {
-        if (collapseEl.classList.contains('show')) {
-          bootstrap.Collapse.getOrCreateInstance(collapseEl).hide();
-        }
-      });
+  var navToggle = document.getElementById('navToggle');
+  var navCollapse = document.getElementById('navCollapse');
+
+  if (navToggle && navCollapse) {
+    navToggle.addEventListener('click', function () {
+      var open = navCollapse.classList.toggle('is-open');
+      navToggle.setAttribute('aria-expanded', String(open));
+      navToggle.innerHTML = open
+        ? '<i class="bi bi-x-lg" aria-hidden="true"></i>'
+        : '<i class="bi bi-list" aria-hidden="true"></i>';
+    });
+
+    // Close after choosing a destination, so the menu doesn't cover the
+    // section it just scrolled to.
+    navCollapse.addEventListener('click', function (e) {
+      if (e.target.closest('a') && navCollapse.classList.contains('is-open')) {
+        navCollapse.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.innerHTML = '<i class="bi bi-list" aria-hidden="true"></i>';
+      }
     });
   }
 
@@ -243,18 +245,33 @@
   --------------------------------------------------------------- */
   var revealables = document.querySelectorAll('.reveal');
 
-  if (!('IntersectionObserver' in window) || prefersReducedMotion) {
-    revealables.forEach(function (el) { el.classList.add('is-visible'); });
-  } else {
+  if (!prefersReducedMotion && 'IntersectionObserver' in window && revealables.length) {
+    // Only now does the CSS hide anything. Setting this any earlier would
+    // risk a blank page if the code below failed.
+    document.documentElement.classList.add('js-reveal');
+
+    // Belt and braces: if the observer somehow never fires, reveal
+    // everything after three seconds rather than leaving the page empty.
+    var revealSafety = setTimeout(function () {
+      revealables.forEach(function (el) { el.classList.add('is-in'); });
+    }, 3000);
+
+    var revealSeen = 0;
     var revealObserver = new IntersectionObserver(function (entries, observer) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-visible');
+        entry.target.classList.add('is-in');
         observer.unobserve(entry.target);
+        if (++revealSeen === 1) clearTimeout(revealSafety);
       });
-    }, { rootMargin: '0px 0px -60px 0px', threshold: 0.08 });
+    }, { rootMargin: '0px 0px -40px 0px', threshold: 0.01 });
 
-    revealables.forEach(function (el) { revealObserver.observe(el); });
+    revealables.forEach(function (el, i) {
+      // A short stagger down each grid reads as one motion rather than a
+      // dozen unrelated ones.
+      el.style.transitionDelay = Math.min(i % 6, 5) * 60 + 'ms';
+      revealObserver.observe(el);
+    });
   }
 
   /* ---------------------------------------------------------------
@@ -273,7 +290,7 @@
 
   if (lightbox && lightboxImg && window.bootstrap) {
     var lightboxInstance = bootstrap.Modal.getOrCreateInstance(lightbox);
-    document.querySelectorAll('.product-img-wrap img, .stock-thumb, .about-img').forEach(function (img) {
+    document.querySelectorAll('.product-media img, .stock-thumb, .story-img').forEach(function (img) {
       img.addEventListener('click', function () {
         lightboxImg.src = img.currentSrc || img.src;
         lightboxImg.alt = img.alt || '';
@@ -518,4 +535,27 @@
         });
     });
   }
+
+  /* ---------------------------------------------------------------
+     11. Order buttons — this build has no cart or checkout (GitHub
+     Pages serves static files only), so each product opens WhatsApp
+     with its name already filled in.
+  --------------------------------------------------------------- */
+  var WHATSAPP_NUMBER = '962799423449';
+
+  document.querySelectorAll('.js-order').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var isAr = currentLang() === 'ar';
+      var name = btn.getAttribute(isAr ? 'data-name-ar' : 'data-name-en') || '';
+      var message = isAr
+        ? 'مرحبًا، أرغب بطلب: ' + name
+        : 'Hello, I would like to order: ' + name;
+
+      window.open(
+        'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message),
+        '_blank',
+        'noopener'
+      );
+    });
+  });
 })();
